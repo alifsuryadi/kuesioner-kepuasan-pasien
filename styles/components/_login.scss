@@ -1,0 +1,107 @@
+.login {
+  height: 90dvh;
+  position: relative;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+
+  .content {
+    width: 70%;
+    z-index: 100;
+
+    @include media-breakpoint-down(md) {
+      width: 80%;
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: 90%;
+    }
+
+    .form-group {
+      position: relative;
+      margin: 20px 0px;
+      color: $color-primary;
+      font-weight: 500;
+
+      label {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      input {
+        background: $color-extra;
+        color: $color-nones;
+        height: 50px;
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      input:-webkit-autofill:active {
+        -webkit-box-shadow: 0 0 0 30px $color-extra inset !important;
+      }
+    }
+
+    .btn-primary {
+      margin-top: 20px;
+      position: relative;
+      background: $color-primary;
+      padding: 10px 40px;
+      font-weight: bold;
+      font-size: 18px;
+      border: 3px solid $color-primary;
+
+      &:hover {
+        background: transparent;
+        border: 3px solid $color-primary;
+        color: $color-primary;
+      }
+    }
+
+    .btn-link {
+      margin-top: 20px;
+      color: $color-primary;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .card-slider {
+    overflow: hidden;
+    border-top-left-radius: 50%;
+    max-height: 400px;
+
+    .glightbox {
+      .image-container {
+        position: absolute;
+        height: 100%;
+        top: 0px;
+        right: -100px;
+        z-index: 1;
+
+        @include media-breakpoint-down(lg) {
+          right: -150px;
+        }
+
+        @include media-breakpoint-down(md) {
+          right: -200px;
+        }
+
+        @include media-breakpoint-down(sm) {
+          right: -350px;
+        }
+
+        transition: transform 0.3s ease-in-out;
+        transform: scale(1.1);
+
+        &:hover,
+        &:focus {
+          transform: scale(1.1) translateX(-20px);
+        }
+      }
+    }
+  }
+}

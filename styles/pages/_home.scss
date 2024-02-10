@@ -1,0 +1,11 @@
+main {
+  position: relative;
+}
+
+.section-bg {
+  background-color: transparent;
+  background-image: linear-gradient(to bottom, $color-default, $color-extra);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}

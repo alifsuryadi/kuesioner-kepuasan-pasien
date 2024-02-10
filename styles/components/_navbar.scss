@@ -1,0 +1,87 @@
+.navbar-container {
+  position: sticky;
+  background: transparent;
+  z-index: 999;
+  border-bottom: 1px solid #dedede;
+
+  .navbar-toggler {
+    border: 2px solid $color-primary;
+    border-radius: 10px;
+
+    &:active,
+    &:focus {
+      border: 2px solid $color-primary !important;
+      box-shadow: none;
+    }
+
+    .navbar-toggler-icon {
+      color: $color-secondary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      i {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    margin: 5px 0px;
+    border-radius: 10px;
+
+    @include media-breakpoint-down(md) {
+      background-color: $color-background;
+    }
+
+    li {
+      margin: 0px 10px;
+      border-radius: 5px;
+
+      @include media-breakpoint-down(md) {
+        background-color: $color-extra;
+
+        &:first-of-type {
+          margin-top: 10px;
+        }
+
+        &:last-of-type {
+          margin-bottom: 10px;
+        }
+
+        &:hover {
+          text-decoration: underline;
+          color: $color-primary;
+        }
+      }
+
+      a {
+        color: $color-primary;
+        font-weight: 400;
+        font-size: 16px;
+        text-align: center;
+        position: relative;
+        border-bottom: 2px solid transparent;
+
+        @include media-breakpoint-up(md) {
+          &:hover,
+          &:active,
+          &:focus {
+            border-bottom: 2px solid $color-primary;
+            animation: border-bottom 0.2s ease-in;
+            color: $color-primary;
+          }
+        }
+      }
+    }
+  }
+
+  .bi-x::before {
+    content: "\e888";
+    color: red; /* Ubah warna silang sesuai kebutuhan */
+  }
+
+  .overflow-hidden {
+    overflow-y: hidden;
+  }
+}

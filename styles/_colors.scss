@@ -1,0 +1,17 @@
+$color-default: #ffffff;
+$color-nones: #212529;
+$color-background: #4682b4;
+$color-hover: #0c5e70;
+$color-extra: #add8e6;
+$color-primary: #0c6f84;
+$color-secondary: #d30f0f;
+
+:root {
+  --color-default: #{$color-default};
+  --color-nones: #{$color-nones};
+  --color-background: #{$color-background};
+  --color-hover: #{$color-hover};
+  --color-extra: #{$color-extra};
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+}
