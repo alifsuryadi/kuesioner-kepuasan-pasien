@@ -9930,7 +9930,7 @@ main {
   background: #d30f0f;
   border: none;
   border-radius: 10px;
-  transition: background-color 0.5s ease, box-shadow 0.5s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 @media (max-width: 767.98px) {
   .navbar-container .navbar-collapse .btn-secondary {
@@ -9938,9 +9938,9 @@ main {
     margin-right: 0px;
   }
 }
-.navbar-container .navbar-collapse .btn-secondary:hover {
-  background-color: #0c6f84;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+.navbar-container .navbar-collapse .btn-secondary:hover, .navbar-container .navbar-collapse .btn-secondary:active {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 .navbar-container .bi-x::before {
   content: "\e888";
@@ -10599,7 +10599,7 @@ main {
   transition: box-shadow 0.5s ease;
 }
 .kelola-pertanyaan .card .btn-edit:hover {
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
 }
 .kelola-pertanyaan .card .aksi {
   text-align: center;
@@ -10607,5 +10607,9 @@ main {
 }
 .kelola-pertanyaan .card thead th {
   text-align: center;
+  vertical-align: middle;
+}
+.kelola-pertanyaan .card tbody th,
+.kelola-pertanyaan .card tbody td {
   vertical-align: middle;
 }/*# sourceMappingURL=main.css.map */
