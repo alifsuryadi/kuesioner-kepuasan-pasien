@@ -1,0 +1,78 @@
+.kelola-pertanyaan {
+  background: $color-primary;
+  min-height: 100dvh;
+
+  .card {
+    width: 100%;
+    background-color: $color-default;
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 20px 40px;
+
+    .card-title {
+      font-weight: bold;
+      font-size: 36px;
+      margin: 15px 0;
+    }
+
+    .card-subtitle {
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      background: $color-primary;
+      border: 3px solid $color-primary;
+
+      &:hover {
+        background: transparent;
+        border: 3px solid $color-primary;
+        color: $color-primary;
+      }
+    }
+
+    .btn-secondary {
+      background: $color-secondary;
+      border: 3px solid $color-secondary;
+
+      @include media-breakpoint-down(md) {
+        margin-right: 0px;
+      }
+
+      &:hover {
+        background-color: transparent;
+        color: $color-secondary;
+      }
+    }
+
+    .btn-delete {
+      margin: 5px;
+      background: $color-secondary;
+      color: $color-default;
+      border: none;
+      border-radius: 10px;
+      transition: box-shadow 0.5s ease;
+
+      &:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    .btn-edit {
+      margin: 5px;
+      background: $color-background;
+      color: $color-default;
+      border: none;
+      border-radius: 10px;
+      transition: box-shadow 0.5s ease;
+
+      &:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .aksi {
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}

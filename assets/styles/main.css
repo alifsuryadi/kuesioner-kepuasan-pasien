@@ -10264,6 +10264,11 @@ main {
   text-align: center;
   vertical-align: middle;
 }
+.print .content .table-responsive tbody th,
+.print .content .table-responsive tbody td {
+  text-align: center;
+  vertical-align: middle;
+}
 .print .content .table-responsive .table {
   margin: 20px auto;
 }
@@ -10531,4 +10536,72 @@ main {
 }
 .kuesioner .card .finish {
   margin: 30px 0 20px 0;
+}
+
+.kelola-pertanyaan {
+  background: #0c6f84;
+  min-height: 100dvh;
+}
+.kelola-pertanyaan .card {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 20px 40px;
+}
+.kelola-pertanyaan .card .card-title {
+  font-weight: bold;
+  font-size: 36px;
+  margin: 15px 0;
+}
+.kelola-pertanyaan .card .card-subtitle {
+  margin-bottom: 40px;
+}
+.kelola-pertanyaan .card .btn-primary {
+  background: #0c6f84;
+  border: 3px solid #0c6f84;
+}
+.kelola-pertanyaan .card .btn-primary:hover {
+  background: transparent;
+  border: 3px solid #0c6f84;
+  color: #0c6f84;
+}
+.kelola-pertanyaan .card .btn-secondary {
+  background: #d30f0f;
+  border: 3px solid #d30f0f;
+}
+@media (max-width: 767.98px) {
+  .kelola-pertanyaan .card .btn-secondary {
+    margin-right: 0px;
+  }
+}
+.kelola-pertanyaan .card .btn-secondary:hover {
+  background-color: transparent;
+  color: #d30f0f;
+}
+.kelola-pertanyaan .card .btn-delete {
+  margin: 5px;
+  background: #d30f0f;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.5s ease;
+}
+.kelola-pertanyaan .card .btn-delete:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+.kelola-pertanyaan .card .btn-edit {
+  margin: 5px;
+  background: #4682b4;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.5s ease;
+}
+.kelola-pertanyaan .card .btn-edit:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.kelola-pertanyaan .card .aksi {
+  text-align: center;
+  vertical-align: middle;
 }/*# sourceMappingURL=main.css.map */
