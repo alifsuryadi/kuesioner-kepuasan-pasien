@@ -172,6 +172,13 @@
     <script src="../../vendor/purecounter/purecounter_vanilla.js"></script>
 
     <script src="../../assets/scripts/main.js"></script>
-    <script src="../../assets/scripts/form.js"></script>
+    <!-- Wajib isi form
+    <script src="../../assets/scripts/form.js"></script> -->
+    <script src="../../assets/scripts/kuesioner.js"></script>
+    <script>
+      document.getElementById("next").addEventListener("click", function () {
+        document.getElementById("myForm").submit();
+      });
+    </script>
   </body>
 </html>
