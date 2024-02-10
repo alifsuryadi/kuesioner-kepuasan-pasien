@@ -10093,6 +10093,7 @@ main {
   margin-top: 20px;
   color: #0c6f84;
   text-decoration: none;
+  padding: 0.375rem 0.2rem;
 }
 .login .content .btn-link:hover {
   text-decoration: underline;
@@ -10233,6 +10234,12 @@ main {
   font-size: 16px;
   border: 3px solid #0c6f84;
 }
+@media (max-width: 575.98px) {
+  .print .content .btn-primary {
+    padding: 10px 30px;
+    margin: 40px 5px 0 5px;
+  }
+}
 .print .content .btn-primary:hover {
   background: transparent;
   border: 3px solid #0c6f84;
@@ -10242,6 +10249,12 @@ main {
   font-weight: bold;
   padding: 10px 40px;
   margin: 40px 20px 0 20px;
+}
+@media (max-width: 575.98px) {
+  .print .content .btn-secondary {
+    padding: 10px 30px;
+    margin: 40px 5px 0 5px;
+  }
 }
 .print .content .btn-secondary:hover {
   background: #656565;
