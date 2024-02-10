@@ -1,0 +1,16 @@
+@import "../../vendor/bootstrap-5.0.2/scss/bootstrap.scss";
+
+@import "fonts";
+@import "colors";
+@import "global";
+
+@import "components/navbar";
+@import "components/hero";
+@import "components/login";
+@import "components/hasil-kuesioner";
+@import "components/print";
+@import "components/biodata";
+@import "components/terimakasih";
+
+@import "pages/home";
+@import "pages/kuesioner";

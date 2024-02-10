@@ -10,11 +10,11 @@
     z-index: 100;
 
     @include media-breakpoint-down(md) {
-      width: 80%;
+      width: 85%;
     }
 
     @include media-breakpoint-down(sm) {
-      width: 90%;
+      width: 100%;
     }
 
     .title {
@@ -27,6 +27,11 @@
       @include media-breakpoint-down(sm) {
         font-size: 35px;
       }
+    }
+
+    .text-content {
+      max-height: 380px;
+      overflow: hidden;
     }
 
     .btn-primary {

@@ -3,6 +3,7 @@
   background: transparent;
   z-index: 999;
   border-bottom: 1px solid #dedede;
+  height: 10dvh;
 
   .navbar-toggler {
     border: 2px solid $color-primary;
@@ -29,6 +30,11 @@
   .navbar-collapse {
     margin: 5px 0px;
     border-radius: 10px;
+
+    @include media-breakpoint-up(md) {
+      display: flex;
+      justify-content: space-between;
+    }
 
     @include media-breakpoint-down(md) {
       background-color: $color-background;
@@ -68,10 +74,32 @@
           &:active,
           &:focus {
             border-bottom: 2px solid $color-primary;
-            animation: border-bottom 0.2s ease-in;
+            animation: border-bottom 0.5s ease-in;
             color: $color-primary;
           }
         }
+
+        &.active {
+          font-weight: 600;
+        }
+      }
+    }
+
+    .btn-secondary {
+      margin-right: 30px;
+      background: $color-secondary;
+      border: none;
+      border-radius: 10px;
+      transition: background-color 0.5s ease, box-shadow 0.5s ease;
+
+      @include media-breakpoint-down(md) {
+        margin-bottom: 20px;
+        margin-right: 0px;
+      }
+
+      &:hover {
+        background-color: $color-primary;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
       }
     }
   }

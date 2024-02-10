@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Lara" />
+    <meta
+      name="description"
+      content="Web Kuesioner Penilaian Tingkat Kepuasan Pasien 
+      RSUD Arosuka"
+    />
+    <meta
+      name="keywords"
+      content="keusioner, naive bayes, penilaian kepuasan"
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="Indonesia" />
+
+    <title>Cara Pengisian - Kuesioner</title>
+
+    <link href="../../assets/images/favicon/favicon.ico" rel="icon" />
+    <link
+      href="../../assets/images/favicon/apple-touch-icon.png"
+      rel="apple-touch-icon"
+    />
+
+    <link rel="stylesheet" href="../../assets/styles/main.css" />
+    <link
+      href="../../vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link href="../../vendor/aos/aos.css" rel="stylesheet" />
+    <link
+      href="../../vendor/glightbox/css/glightbox.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <section id="keusioner" class="kuesioner">
+        <div class="progressbar">
+          <div class="container">
+            <div class="progress-container">
+              <div class="progress" id="progress"></div>
+              <div class="circle active">1</div>
+              <div class="circle">2</div>
+              <div class="circle">3</div>
+              <div class="circle">4</div>
+            </div>
+
+            <!-- Content -->
+            <div class="card">
+              <div class="card-body">
+                <div class="content">
+                  <h3 class="card-title">Cara Pengisian Kuosioner</h3>
+                  <p class="card-subtitle">
+                    Untuk Pengisian Kuoisioner bla bla bla
+                  </p>
+                  <div class="question-container">
+                    <h4 class="question-title">Contoh Pertanyaan :</h4>
+                    <div class="question">
+                      <div class="question-no">1.</div>
+                      <div class="question-text">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Dolor odit doloremque ducimus fuga nesciunt dicta
+                        necessitatibus dolores dolorum veritatis saepe ipsam,
+                        facere, voluptatibus aut accusamus, reiciendis porro!
+                        Eligendi, illo facilis.?
+                      </div>
+                    </div>
+                    <p class="answer">Jawaban anda : <span>50</span></p>
+                    <!-- Slider -->
+                    <div class="bantuan">
+                      <span>0</span>
+                      <span>100</span>
+                    </div>
+                    <input
+                      class="answer-question"
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="0"
+                    />
+                    <br />
+                  </div>
+                  <p class="finish">Jika anda mengerti, silahkan lanjutkan</p>
+                </div>
+
+                <div class="button">
+                  <a href="biodata.html" class="btn btn-secondary" id="prev"
+                    >Kembali</a
+                  >
+                  <a href="pertanyaan.html" class="btn btn-primary" id="next"
+                    >Lanjutkan</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content" data-aos="fade-up"></div>
+      </section>
+    </main>
+
+    <!-- Vendor JS Files -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="../../vendor/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/aos/aos.js"></script>
+    <script src="../../vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../../vendor/purecounter/purecounter_vanilla.js"></script>
+
+    <script src="../../assets/scripts/main.js"></script>
+    <script src="../../assets/scripts/kuesioner.js"></script>
+    <script src="../../assets/scripts/pertanyaan.js"></script>
+  </body>
+</html>

@@ -1,0 +1,87 @@
+.hasil-kuesioner {
+  height: 90dvh;
+  position: relative;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+
+  .content {
+    width: 80%;
+    z-index: 100;
+
+    @include media-breakpoint-down(md) {
+      width: 90%;
+    }
+
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+    }
+
+    .card {
+      height: 150px;
+      margin: 10px;
+      text-align: center;
+      border-radius: 15px;
+      background-color: $color-primary;
+      color: $color-default;
+      transition: transform 0.2s ease-in-out;
+
+      &:hover,
+      &:focus {
+        transform: scale(1.1);
+      }
+
+      .card-body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        .purecounter {
+          font-size: 40px;
+          font-weight: bold;
+        }
+
+        .card-text {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .card-slider {
+    overflow: hidden;
+    border-top-left-radius: 50%;
+    max-height: 400px;
+
+    .glightbox {
+      .image-container {
+        position: absolute;
+        height: 100%;
+        top: 0px;
+        right: -100px;
+        z-index: 1;
+
+        @include media-breakpoint-down(lg) {
+          right: -150px;
+        }
+
+        @include media-breakpoint-down(md) {
+          right: -200px;
+        }
+
+        @include media-breakpoint-down(sm) {
+          right: -350px;
+        }
+
+        transition: transform 0.3s ease-in-out;
+        transform: scale(1.1);
+
+        &:hover,
+        &:focus {
+          transform: scale(1.1) translateX(-20px);
+        }
+      }
+    }
+  }
+}

@@ -9,16 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
   /**
-   * Preloader
-   */
-  const preloader = document.querySelector("#preloader");
-  if (preloader) {
-    window.addEventListener("load", () => {
-      preloader.remove();
-    });
-  }
-
-  /**
    * Initiate glightbox
    */
   const glightbox = GLightbox({
@@ -30,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
    */
   new PureCounter();
 
-  /**
-   * Animation on scroll function and init
-   */
+  // AOS
+  AOS.init();
 });

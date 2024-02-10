@@ -1,0 +1,218 @@
+.kuesioner {
+  background: $color-primary;
+  min-height: 100dvh;
+
+  .progressbar {
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .progress-container {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 30px;
+      max-width: 100%;
+      width: 350px;
+      z-index: 99;
+    }
+
+    .progress-container::before {
+      content: "";
+      background-color: $color-default;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 4px;
+      width: 100%;
+      z-index: -1;
+    }
+
+    .progress {
+      background-color: $color-background;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 4px;
+      width: 0%;
+      z-index: -1;
+      transition: 0.4s ease;
+    }
+
+    .circle {
+      background-color: #1f1f1f;
+      color: #e2e2e2;
+      border-radius: 50%;
+      height: 30px;
+      width: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid $color-default;
+      transition: 0.4s ease;
+    }
+
+    .circle.active {
+      border-color: $color-background;
+    }
+
+    .btn {
+      color: #fff;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+      padding: 8px 30px;
+      margin: 5px;
+      font-size: 14px;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn:focus {
+      outline: 0;
+    }
+
+    .btn:disabled {
+      background-color: $color-default;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: $color-primary;
+      border: 3px solid $color-primary;
+
+      &:hover {
+        background: transparent;
+        border: 3px solid $color-primary;
+        color: $color-primary;
+      }
+    }
+
+    .btn-secondary {
+      background: $color-secondary;
+      border: 3px solid $color-secondary;
+
+      @include media-breakpoint-down(md) {
+        margin-right: 0px;
+      }
+
+      &:hover {
+        background-color: transparent;
+        color: $color-secondary;
+      }
+    }
+  }
+
+  .card {
+    width: 100%;
+    background-color: $color-default;
+    border-radius: 20px;
+    font-size: 16px;
+    padding: 20px 40px;
+
+    .card-title {
+      font-weight: bold;
+      font-size: 36px;
+      margin: 15px 0;
+    }
+
+    .card-subtitle {
+      margin-bottom: 40px;
+    }
+
+    .question-container {
+      .question-title {
+        font-size: 18px;
+        margin: 20px 0;
+      }
+
+      .question {
+        margin: 10px 0;
+        display: flex;
+
+        .question-text {
+          margin-left: 5px;
+        }
+      }
+
+      .answer {
+        font-style: italic;
+        margin: 20px 12px 40px 12px;
+
+        span {
+          font-style: normal;
+          margin-left: 5px;
+          border-radius: 5px;
+          padding: 2px 10px;
+          border: 1px solid $color-nones;
+        }
+      }
+
+      /* Tampilan default input range */
+      input[type="range"] {
+        -webkit-appearance: none;
+        margin-bottom: 40px;
+        margin-left: 10px;
+        width: 70%;
+        height: 8px;
+        border-radius: 5px;
+        background: #d3d3d3;
+        outline: none;
+        margin-top: 10px;
+
+        @include media-breakpoint-down(sm) {
+          width: 100%;
+        }
+      }
+
+      /* Tampilan input range yang sudah diisi */
+      input[type="range"]::-webkit-slider-runnable-track {
+        width: 70%;
+        height: 8px;
+        cursor: pointer;
+        animate: 0.2s;
+        background: #d3d3d3;
+        border-radius: 5px;
+
+        @include media-breakpoint-down(sm) {
+          width: 100%;
+        }
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: 2px solid #020202;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: $color-primary;
+        cursor: pointer;
+        margin-top: -6px;
+      }
+
+      .bantuan {
+        margin-left: 10px;
+        display: flex;
+        align-items: space-between;
+        justify-content: space-between;
+        width: 70%;
+
+        @include media-breakpoint-down(sm) {
+          width: 100%;
+        }
+      }
+    }
+
+    .finish {
+      margin: 30px 0 20px 0;
+    }
+  }
+}
