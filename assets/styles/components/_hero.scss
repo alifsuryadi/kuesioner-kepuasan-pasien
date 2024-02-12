@@ -1,5 +1,5 @@
 .hero {
-  height: 90dvh;
+  min-height: 90dvh;
   position: relative;
   padding: 30px;
   display: flex;
@@ -41,6 +41,11 @@
       font-weight: bold;
       font-size: 20px;
       border: 3px solid $color-primary;
+
+      @include media-breakpoint-down(sm) {
+        font-size: 18px;
+        padding: 10px 40px;
+      }
 
       &:hover {
         background: transparent;

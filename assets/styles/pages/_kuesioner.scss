@@ -128,6 +128,17 @@
       margin-bottom: 40px;
     }
 
+    .category-question {
+      margin-top: 40px;
+      h4 {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        margin: 20px 0;
+        color: $color-primary;
+      }
+    }
+
     .question-container {
       .question-title {
         font-size: 18px;

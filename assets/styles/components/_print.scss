@@ -50,6 +50,24 @@
       }
     }
 
+    .btn-uji {
+      margin: 5px;
+      background: $color-background;
+      color: $color-default;
+      border: none;
+      border-radius: 10px;
+      transition: box-shadow 0.5s ease;
+
+      &:hover {
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+      }
+    }
+
+    .aksi {
+      text-align: center;
+      vertical-align: middle;
+    }
+
     .table-responsive {
       margin-top: 20px;
       display: block;

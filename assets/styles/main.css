@@ -9888,6 +9888,9 @@ main {
     background-color: #4682b4;
   }
 }
+.navbar-container .navbar-collapse .nav-link {
+  padding: 10px 5px;
+}
 .navbar-container .navbar-collapse li {
   margin: 0px 10px;
   border-radius: 5px;
@@ -9951,7 +9954,7 @@ main {
 }
 
 .hero {
-  height: 90dvh;
+  min-height: 90dvh;
   position: relative;
   padding: 30px;
   display: flex;
@@ -9995,6 +9998,12 @@ main {
   font-size: 20px;
   border: 3px solid #0c6f84;
 }
+@media (max-width: 575.98px) {
+  .hero .content .btn-primary {
+    font-size: 18px;
+    padding: 10px 40px;
+  }
+}
 .hero .content .btn-primary:hover {
   background: transparent;
   border: 3px solid #0c6f84;
@@ -10034,7 +10043,7 @@ main {
 }
 
 .login {
-  height: 90dvh;
+  min-height: 90dvh;
   position: relative;
   padding: 30px;
   display: flex;
@@ -10132,7 +10141,7 @@ main {
 }
 
 .hasil-kuesioner {
-  height: 90dvh;
+  min-height: 90dvh;
   position: relative;
   padding: 30px;
   display: flex;
@@ -10259,6 +10268,21 @@ main {
 .print .content .btn-secondary:hover {
   background: #656565;
 }
+.print .content .btn-uji {
+  margin: 5px;
+  background: #4682b4;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  transition: box-shadow 0.5s ease;
+}
+.print .content .btn-uji:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+.print .content .aksi {
+  text-align: center;
+  vertical-align: middle;
+}
 .print .content .table-responsive {
   margin-top: 20px;
   display: block;
@@ -10343,6 +10367,86 @@ main {
   background: transparent;
   border: 3px solid #0c6f84;
   color: #0c6f84;
+}
+
+.hasil-pengujian {
+  min-height: 100dvh;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0c6f84;
+}
+.hasil-pengujian .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.hasil-pengujian .content .title {
+  color: #ffffff;
+  font-weight: 600;
+  margin: 40px auto;
+  font-size: 45px;
+  text-align: center;
+}
+@media (max-width: 575.98px) {
+  .hasil-pengujian .content .title {
+    font-size: 25px;
+  }
+}
+.hasil-pengujian .content .btn-primary {
+  background: #0c6f84;
+  padding: 10px 40px;
+  margin: 40px 20px 0 20px;
+  font-weight: bold;
+  font-size: 16px;
+  border: 3px solid #0c6f84;
+}
+@media (max-width: 575.98px) {
+  .hasil-pengujian .content .btn-primary {
+    padding: 10px 30px;
+    margin: 40px 5px 0 5px;
+  }
+}
+.hasil-pengujian .content .btn-primary:hover {
+  background: transparent;
+  border: 3px solid #0c6f84;
+  color: #0c6f84;
+}
+.hasil-pengujian .content .btn-secondary {
+  font-weight: bold;
+  padding: 10px 40px;
+  margin: 40px 20px 0 20px;
+}
+@media (max-width: 575.98px) {
+  .hasil-pengujian .content .btn-secondary {
+    padding: 10px 30px;
+    margin: 40px 5px 0 5px;
+  }
+}
+.hasil-pengujian .content .btn-secondary:hover {
+  background: #656565;
+}
+.hasil-pengujian .content .card {
+  max-width: 420px;
+  padding: 10px;
+  border-radius: 20px;
+}
+.hasil-pengujian .content .card .card-title {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center;
+  margin: 25px auto;
+  color: #0c6f84;
+}
+.hasil-pengujian .content .card .card-subtitle {
+  margin: 20px 0px 5px 0px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.hasil-pengujian .content .card span {
+  font-style: italic;
 }
 
 main {
@@ -10469,6 +10573,16 @@ main {
 }
 .kuesioner .card .card-subtitle {
   margin-bottom: 40px;
+}
+.kuesioner .card .category-question {
+  margin-top: 40px;
+}
+.kuesioner .card .category-question h4, .kuesioner .card .category-question .h4 {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px 0;
+  color: #0c6f84;
 }
 .kuesioner .card .question-container {
   /* Tampilan default input range */
