@@ -71,7 +71,7 @@
                                             <div class="col-12 col-lg-8 mb-3">
                                                 <div class="form-group">
                                                     <label for="gender" class="mb-2">Jenis Kelamin</label>
-                                                    <select class="form-select" name="gender" id="gender" required>
+                                                    <select class="form-select" name="gender" id="gender">
                                                         <option value="" disabled selected>
                                                             -- Pilih jenis kelamin --
                                                         </option>
@@ -111,9 +111,9 @@
                                 <div class="button">
                                     <a href="../../index.php" class="btn btn-secondary" id="prev">Kembali</a>
                                     <!-- Lanjutkan button -->
-                                    <a href="./cara-pengisian.php" type="button" class="btn btn-primary" id="next">
+                                    <button type="submit" class="btn btn-primary" id="next">
                                         Lanjutkan
-                                    </a>
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -134,13 +134,6 @@
     <!-- Wajib isi form
     <script src="../../assets/scripts/form.js"></script> -->
     <script src="../../assets/scripts/kuesioner.js"></script>
-    <script>
-    document.getElementById("next").addEventListener("click", function() {
-        document.getElementById("myForm").submit();
-    });
-    </script>
-
-
 
 
 </body>

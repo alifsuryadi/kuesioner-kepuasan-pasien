@@ -28,13 +28,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Halaman
     if (currentActive === 2) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "cara-pengisian.php";
+      window.location.href = "../../validations/proses_biodata.php";
     } else if (currentActive === 3) {
       localStorage.setItem("currentActive", currentActive);
       window.location.href = "pertanyaan.php";
     } else if (currentActive === 4) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "rangkuman.php";
+      window.location.href = "../../validations/proses_survey.php";
     }
   });
 

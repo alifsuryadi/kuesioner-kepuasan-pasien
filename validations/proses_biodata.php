@@ -1,40 +1,41 @@
 <?php
-// Include file koneksi ke database
-include "./connection.php";
+include "./connection.php"; // Menghubungkan ke database
 
-// Cek apakah form biodata sudah di-submit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Menampilkan data yang dikirimkan melalui form
+    // Mengambil nilai yang dikirimkan dari formulir
+    $email = isset($_POST["email"]) ? $_POST["email"] : null; 
+    $gender = isset($_POST["gender"]) ? $_POST["gender"] : null; // Jika gender tidak diisi, jadikan null
+    $job = isset($_POST["job"]) ? $_POST["job"] : null; // Jika job tidak diisi, jadikan null
+    $age = isset($_POST["age"]) ? $_POST["age"] : null; // Jika age tidak diisi, jadikan null
+    $address = isset($_POST["address"]) ? $_POST["address"] : null; // Jika address tidak diisi, jadikan null
+    $role = "user"; // Set role ke "user"
 
-    // Tangkap data yang dikirimkan melalui form
-    $email = $_POST['email'];
-    $username = isset($_POST['username']) ? $_POST['username'] : "user"; // Jika tidak ada username, defaultnya adalah "user"
-    $gender = $_POST['gender'];
-    $job = $_POST['job'];
-    $age = $_POST['age']; // Kolom di database adalah "age", bukan "age"
-    $address = $_POST['address']; // Perbaikan: Ganti dari $addresss menjadi $address
+    // Menyiapkan pernyataan SQL untuk memasukkan data ke tabel users
+    $sql_insert_user = "INSERT INTO `users` (`email`, `password`, `role`, `gender`, `job`, `age`, `address`) 
+                        VALUES ('$email', '', '$role', '$gender', '$job', '$age', '$address')";
 
-    // Tentukan role default jika tidak disertakan dalam form
-    $defaultRole = "user";
+    // Memasukkan data ke tabel users
+    if ($connect->query($sql_insert_user) === TRUE) {
+        // Jika berhasil disimpan, ambil ID pengguna yang baru saja disimpan
+        $new_user_id = $connect->insert_id;
 
-    // Query untuk menyimpan data ke database
-    $query = "INSERT INTO users (username, email, role, gender, job, age, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $connect->prepare($query);
+        // Buat username dengan format "user" diikuti dengan ID pengguna
+        $username = "user" . $new_user_id;
 
-    // Bind parameter ke statement
-    $stmt->bind_param("ssssiss", $username, $email, $defaultRole, $gender, $job, $age, $address);
+        // Perbarui kolom username dalam tabel dengan username baru
+        $sql_update_username = "UPDATE `users` SET `username`='$username' WHERE `id_user`='$new_user_id'";
+        $connect->query($sql_update_username);
 
-    // Eksekusi query
-    if ($stmt->execute()) {
-        // Redirect ke halaman cara pengisian jika penyimpanan berhasil
+        // Alihkan pengguna ke halaman lain
         header("Location: ../pages/kuesioner/cara-pengisian.php");
-        exit; // Pastikan untuk keluar dari skrip setelah melakukan redirect
+        exit();
     } else {
-        echo "Terjadi kesalahan: " . $stmt->error;
+        // Jika terjadi kesalahan, tampilkan pesan kesalahan
+        header("Location: ../pages/kuesioner/biodata.php");
+        exit();
     }
 
-    // Tutup statement dan koneksi ke database
-    $stmt->close();
+    // Menutup koneksi database
     $connect->close();
 }
 ?>

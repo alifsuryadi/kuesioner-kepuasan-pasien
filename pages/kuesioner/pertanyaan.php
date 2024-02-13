@@ -66,8 +66,8 @@ $id_user_last = $rowUserId['id_user'];
 
                     <div class="card">
                         <div class="card-body">
-                            <form action="../../validations/proses_survey.php" method="post"
-                                enctype="multipart/form-data">
+                            <form id="myForm" action="../../validations/proses_survey.php" method="post"
+                                enctype="application/x-www-form-urlencoded">
                                 <div class="content">
                                     <h3 class="card-title">Silahkan isi pertanyaan berikut</h3>
                                     <p class="card-subtitle">
@@ -76,6 +76,7 @@ $id_user_last = $rowUserId['id_user'];
                                     </p>
 
                                     <input type="hidden" name="id_user" value="<?php echo $id_user_last; ?>">
+
 
                                     <?php while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
                                     <div class="category-question">
@@ -131,9 +132,9 @@ $id_user_last = $rowUserId['id_user'];
 
                                 <div class="button">
                                     <a href="cara-pengisian.php" class="btn btn-secondary" id="prev">Kembali</a>
-                                    <a href="" type="submit" class="btn btn-primary" id="next">
+                                    <button type="submit" class="btn btn-primary" id="next">
                                         Lanjutkan
-                                    </a>
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -153,7 +154,7 @@ $id_user_last = $rowUserId['id_user'];
     <script src="../../assets/scripts/main.js"></script>
     <script src="../../assets/scripts/kuesioner.js"></script>
     <script src="../../assets/scripts/slider-answer.js"></script>
-    <script>
+    <!-- <script>
     document
         .getElementById("next")
         .addEventListener("click", function(event) {
@@ -161,7 +162,7 @@ $id_user_last = $rowUserId['id_user'];
 
             document.querySelector("form").submit();
         });
-    </script>
+    </script> -->
 </body>
 
 </html>
