@@ -73,11 +73,12 @@
                                         <div class="card-body">
 
                                             <?php
-                                                // Include file koneksi
-                                                include "../../validations/connection.php";
-                                                
-                                                // Query untuk menghitung total responden
-                                                $sql = "SELECT COUNT(*) AS total_responden FROM users";
+                                            // Include file koneksi
+                                            include "../../validations/connection.php";
+
+                                            try {
+                                                // Query untuk menghitung total responden kecuali yang berperan sebagai admin
+                                                $sql = "SELECT COUNT(*) AS total_responden FROM users WHERE role != 'admin'";
                                                 $result = mysqli_query($connect, $sql);
 
                                                 if ($result) {
@@ -90,7 +91,9 @@
                                                 } else {
                                                     echo "0 results";
                                                 }
-
+                                            } catch (Exception $e) {
+                                                echo "Error: " . $e->getMessage();
+                                            }
                                             ?>
                                             <!-- <span data-purecounter-start="0" data-purecounter-end="44"
                                                 data-purecounter-duration="1" class="purecounter"></span> -->

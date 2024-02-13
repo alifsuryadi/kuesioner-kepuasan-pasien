@@ -98,8 +98,8 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
                                 <div class="question-container mt-4">
                                     <div class="form-group">
                                         <label for="pertanyaan" class="mb-2">Pertanyaan</label>
-                                        <textarea class="form-control" id="pertanyaan" name="pertanyaan"
-                                            rows="5"><?php echo $pertanyaan; ?></textarea>
+                                        <textarea class="form-control" id="pertanyaan" name="pertanyaan" rows="5"
+                                            required><?php echo $pertanyaan; ?></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="kategori" class="mb-2">Kategori Pertanyaan</label>
