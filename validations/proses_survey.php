@@ -2,9 +2,9 @@
 include "./connection.php"; // Menghubungkan ke database
 
 // Fuzzyfikasi untuk menentukan kepuasan berdasarkan nilai
-$Reliability = 0;
 $Responsiveness = 0;
-$Assurance = 0;
+$Empathy = 0;
+$Tangible = 0;
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -54,9 +54,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Table Survey_results
-    $countReliability = 0;
     $countResponsiveness = 0;
-    $countAssurance = 0;
+    $countEmpathy = 0;
+    $countTangible = 0;
 
     // Loop melalui data formulir untuk menghitung nilai kategori
     for ($i = 1; $i <= 30; $i++) {
@@ -70,14 +70,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $category_id = $row['id_category'];
                 // Menambahkan nilai jawaban ke kategori yang sesuai
                 if ($category_id == 1) {
-                    $countReliability++;
-                    $Reliability += $_POST[$question_key];
-                } elseif ($category_id == 2) {
                     $countResponsiveness++;
                     $Responsiveness += $_POST[$question_key];
+                } elseif ($category_id == 2) {
+                    $countEmpathy++;
+                    $Empathy += $_POST[$question_key];
                 } elseif ($category_id == 3) {
-                    $countAssurance++;
-                    $Assurance += $_POST[$question_key];
+                    $countTangible++;
+                    $Tangible += $_POST[$question_key];
                 }
             }
         }
@@ -101,121 +101,121 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Defuzzifikasi
     // Rata-rata =  Total / Jumlah Data
-    $RataReliability = $Reliability / $countReliability;
     $RataResponsiveness = $Responsiveness / $countResponsiveness;
-    $RataAssurance = $Assurance / $countAssurance;
+    $RataEmpathy = $Empathy / $countEmpathy;
+    $RataTangible = $Tangible / $countTangible;
 
 
     // Fuzzyfikasi
-    $hasilReliability = "";
-    if ($RataReliability >= 70){
-          $hasilReliability = "Baik";
-    }else if ($RataReliability >= 40){
-         $hasilReliability = "Cukup Baik";
-    }else{
-         $hasilReliability = "Tidak Baik";
-    }
-
     $hasilResponsiveness = "";
     if ($RataResponsiveness >= 70){
           $hasilResponsiveness = "Baik";
-    }else if ($RataResponsiveness >= 70){
+    }else if ($RataResponsiveness >= 40){
          $hasilResponsiveness = "Cukup Baik";
     }else{
          $hasilResponsiveness = "Tidak Baik";
     }
 
-    $hasilAssurance = "";
-    if ($RataAssurance >= 70){
-          $hasilAssurance = "Baik";
-    }else if ($RataAssurance >= 40){
-         $hasilAssurance = "Cukup Baik";
+    $hasilEmpathy = "";
+    if ($RataEmpathy >= 70){
+          $hasilEmpathy = "Baik";
+    }else if ($RataEmpathy >= 70){
+         $hasilEmpathy = "Cukup Baik";
     }else{
-         $hasilAssurance = "Tidak Baik";
+         $hasilEmpathy = "Tidak Baik";
+    }
+
+    $hasilTangible = "";
+    if ($RataTangible >= 70){
+          $hasilTangible = "Baik";
+    }else if ($RataTangible >= 40){
+         $hasilTangible = "Cukup Baik";
+    }else{
+         $hasilTangible = "Tidak Baik";
     }
 
 
     // Inferense
     $kepuasan = "";
-    if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Tidak Baik" ){
+    if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Tidak Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Tidak Baik" ){
         $kepuasan = "Tidak Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Cukup Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Cukup Baik" ){
         $kepuasan = "Puas";
     }
-    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Baik" ){
+    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Baik" ){
         $kepuasan = "Puas";
     }
     else{
@@ -224,7 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     //Alfa prediket--------------------------------------------------
-    $alfa = min($RataReliability, $RataResponsiveness, $RataAssurance);
+    $alfa = min($RataResponsiveness, $RataEmpathy, $RataTangible);
     $alfaSederhana = $alfa / 100;
 
     $nilai_z = 0;
@@ -247,13 +247,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $next_id = $last_id + 1;
 
     // Menyiapkan pernyataan SQL untuk memasukkan data hasil survey ke dalam tabel survey_results
-    $sql_insert_result = "INSERT INTO `survey_results` (`id_form`, `created_at`, `reliability`, `responsiveness`, `assurance`, `nilai_z`, `kepuasan`) 
-                            VALUES ('$next_id', NOW(), '$RataReliability', '$RataResponsiveness', '$RataAssurance', '$nilai_z', '$kepuasan')";
+    $sql_insert_result = "INSERT INTO `survey_results` (`id_form`, `created_at`, `responsiveness`, `empathy`, `tangible`, `nilai_z`, `kepuasan`) 
+                            VALUES ('$next_id', NOW(), '$RataResponsiveness', '$RataEmpathy', '$RataTangible', '$nilai_z', '$kepuasan')";
          
     // Memasukkan data kuesioner ke dalam tabel survey_form
     if ($connect->query($sql_insert_user) === TRUE && $connect->query($sql_insert_survey) === TRUE && $connect->query($sql_insert_result) === TRUE ) {
         // Jika berhasil disimpan, alihkan pengguna ke halaman rangkuman
-        header("Location: ../pages/kuesioner/terimakasih.php");
+        header("Location: ../pages/kuesioner/hasil-pengujian.php?id_form=$next_id");
         exit();
     } else {
         // Jika terjadi kesalahan, tampilkan pesan kesalahan

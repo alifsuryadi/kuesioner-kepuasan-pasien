@@ -53,9 +53,9 @@ include_once("../../../validations/middleware-2.php");
 
                                         <select class="form-select" id="id_category" name="id_category" required>
                                             <option value="" disabled selected>-- Pilih Kategori Pertanyaan --</option>
-                                            <option value="1">Keandalan (Reliability)</option>
-                                            <option value="2">Daya Tanggap (Responsiveness)</option>
-                                            <option value="3"> Jaminan (Assurance)</option>
+                                            <option value="1">Ketanggapan (Responsiveness)</option>
+                                            <option value="2">Empati (Empathy)</option>
+                                            <option value="3">Tampilan Fisik (Tangible)</option>
                                         </select>
                                     </div>
                                 </div>

@@ -106,12 +106,12 @@ if (isset($_GET['id']) && !empty(trim($_GET['id']))) {
                                         <select class="form-select" id="kategori" name="kategori" required>
 
                                             <option value="" disabled>-- Pilih Kategori Pertanyaan --</option>
-                                            <option value="1" <?php if ($id_kategori == 1) echo "selected"; ?>>Keandalan
-                                                (Reliability)</option>
+                                            <option value="1" <?php if ($id_kategori == 1) echo "selected"; ?>>
+                                                Ketanggapan (Responsiveness)</option>
                                             <option value="2" <?php if ($id_kategori == 2) echo "selected"; ?>>Daya
-                                                Tanggap (Responsiveness)</option>
-                                            <option value="3" <?php if ($id_kategori == 3) echo "selected"; ?>>Jaminan
-                                                (Assurance)</option>
+                                                Empati (Empathy)</option>
+                                            <option value="3" <?php if ($id_kategori == 3) echo "selected"; ?>>Tampilan
+                                                Fisik (Tangible)</option>
                                         </select>
                                     </div>
                                     <input type="hidden" name="id_pertanyaan" value="<?php echo $id_pertanyaan; ?>">

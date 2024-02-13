@@ -38,7 +38,7 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id_category`, `category`) VALUES
 (1, 'Keandalan (Reliability)'),
-(2, 'Daya Tanggap (Responsiveness)'),
+(2, 'Daya Tanggap (Empathy)'),
 (3, 'Jaminan (Assurance)');
 
 -- --------------------------------------------------------
@@ -140,7 +140,7 @@ CREATE TABLE `survey_results` (
   `id_form` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `reliability` float NOT NULL,
-  `responsiveness` float NOT NULL,
+  `empathy` float NOT NULL,
   `assurance` float NOT NULL,
   `nilai_z` float NOT NULL,
   `kepuasan` varchar(100) NOT NULL
@@ -150,7 +150,7 @@ CREATE TABLE `survey_results` (
 -- Dumping data for table `survey_results`
 --
 
-INSERT INTO `survey_results` (`id_result`, `id_form`, `created_at`, `reliability`, `responsiveness`, `assurance`, `nilai_z`, `kepuasan`) VALUES
+INSERT INTO `survey_results` (`id_result`, `id_form`, `created_at`, `reliability`, `empathy`, `assurance`, `nilai_z`, `kepuasan`) VALUES
 (1, 1, '2024-02-13 15:13:12', 93, 96.8, 97.4, 64.62, 'Puas'),
 (2, 2, '2024-02-13 15:18:19', 22.2, 53.4, 43.2, 59.452, 'Tidak Puas'),
 (3, 3, '2024-02-13 15:25:57', 50.6, 58.2, 57.2, 50.204, 'Puas'),

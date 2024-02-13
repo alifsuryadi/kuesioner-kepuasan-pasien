@@ -6,7 +6,7 @@ include_once("../../../validations/connection.php");
 $data_survey_form = [];
 try {
     // Lakukan kueri SQL untuk mengambil data dari tabel survey_form dan nama lengkap dari tabel users
-    $query = "SELECT sf.*, sr.Kepuasan, u.username AS nama_lengkap
+    $query = "SELECT sf.*, sr.Kepuasan, sr.Responsiveness, sr.Empathy, sr.Tangible, u.username AS nama_lengkap
               FROM survey_form sf
               LEFT JOIN users u ON sf.id_user = u.id_user
               LEFT JOIN survey_results sr ON sf.id_form = sr.id_form
@@ -79,7 +79,8 @@ $total_questions = $row['total'];
                                 <th rowspan="2">#</th>
                                 <th rowspan="2" class="col-md-2 col-xs-2">Nama Lengkap</th>
                                 <th colspan="<?php echo $total_questions; ?>" class="col-md-8 col-xs-8">Pertanyaan</th>
-                                <th rowspan="2" class="col-md-2 col-xs-2">Kepuasan</th>
+                                <th colspan="3" class="col-md-1 col-xs-1">Kategori</th>
+                                <th rowspan="2" class="col-md-1 col-xs-1">Kepuasan</th>
                             </tr>
                             <tr>
                                 <?php
@@ -88,9 +89,13 @@ $total_questions = $row['total'];
                                     echo '<th>' . $i . '</th>';
                                 }
                                 ?>
+                                <th>Responsiveness</th>
+                                <th>Empathy</th>
+                                <th>Tangible</th>
+
                             </tr>
                             <tr class="warning no-result text-center">
-                                <td colspan="<?php echo $total_questions + 3; ?>" class="py-4">
+                                <td colspan="<?php echo $total_questions + 6; ?>" class="py-4">
                                     <i class="fa fa-warning">Tidak ada hasil yang ditemukan</i>
                                 </td>
                             </tr>
@@ -116,6 +121,11 @@ $total_questions = $row['total'];
                                           echo '<td>-</td>';
                                       }
                                   }
+
+
+                                    echo '<td>' . (isset($survey_form['Responsiveness']) ? $survey_form['Responsiveness'] : '-') . '</td>';
+                                    echo '<td>' . (isset($survey_form['Empathy']) ? $survey_form['Empathy'] : '-') . '</td>';
+                                    echo '<td>' . (isset($survey_form['Tangible']) ? $survey_form['Tangible'] : '-') . '</td>';
                                     
                                   echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['Kepuasan']) ? $survey_form['Kepuasan'] : '') . '</td>';
 

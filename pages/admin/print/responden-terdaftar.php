@@ -5,7 +5,8 @@ include "../../../validations/connection.php";
 
 try {
     // Query untuk mengambil data responden terdaftar
-    $sql = "SELECT * FROM users WHERE email IS NOT NULL AND email <> '' AND role <> 'admin'";
+    $sql = "SELECT u.*, s.* FROM users u LEFT JOIN survey_form f ON u.id_user = f.id_user LEFT JOIN survey_results s ON f.id_form = s.id_form WHERE u.email IS NOT NULL AND u.email <> '' AND u.role <> 'admin'";
+
     $result = mysqli_query($connect, $sql);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -34,35 +35,51 @@ try {
                             <div class="content" data-aos="fade-up">
                                 <h2 class="title">Total Responden Pasien Terdaftar di RSUD Arosuka</h2>
                                 <div class="table-responsive">
+                                    <div class="form-group pull-right d-flex justify-content-end">
+                                    <input
+                                    type="text"
+                                    class="search form-control"
+                                    placeholder="Search"
+                                    />
+                                    </div>
+                                    <span class="counter pull-right"></span>
                                     <table class="table table-hover table-bordered results">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
                                                 <th class="col-md-2 col-xs-2">Nama Lengkap</th>
                                                 <th class="col-md-2 col-xs-2">Email</th>
-                                                <th class="col-md-2 col-xs-2">Pekerjaan</th>
-                                                <th class="col-md-1 col-xs-1">Umur</th>
+                                                <th class="col-md-1 col-xs-1">Pekerjaan</th>
+                                                <th>Umur</th>
                                                 <th class="col-md-1 col-xs-1">Jenis Kelamin</th>
-                                                <th class="col-md-4 col-xs-4">Alamat</th>
+                                                <th class="col-md-3 col-xs-3">Alamat</th>
+                                                <th class="col-md-1 col-xs-1">Responsiveness</th>
+                                                <th class="col-md-1 col-xs-1">Empathy</th>
+                                                <th class="col-md-1 col-xs-1">Tangible</th>
+                                                <th class="col-md-2 col-xs-2">Kepuasan</th>
                                             </tr>
-                                            <tr class="warning no-result">
-                                                <td colspan="4"><i class="fa fa-warning"></i> Tidak ada hasil yang ditemukan</td>
+                                            <tr class="warning no-result text-center">
+                                                <td colspan="11" class="py-4"><i class="fa fa-warning">Tidak ada hasil yang ditemukan</i> </td>
                                             </tr>
                                         </thead>
                                         <tbody>';
-        $counter = 1;
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo '<tr>';
-            echo '<th scope="row">' . $counter . '</th>';
-            echo '<td class="col-md-2 col-xs-2">' . ($row['username'] ? $row['username'] : '-') . '</td>';
-            echo '<td class="col-md-2 col-xs-2">' . $row['email'] . '</td>';
-            echo '<td class="col-md-2 col-xs-2">' . ($row['job'] ? $row['job'] : '-') . '</td>';
-            echo '<td class="col-md-1 col-xs-1">' . ($row['age'] ? $row['age'] : '-') . '</td>';
-            echo '<td class="col-md-1 col-xs-1">' . ($row['gender'] ? $row['gender'] : '-') . '</td>';
-            echo '<td class="col-md-4 col-xs-4">' . ($row['address'] ? $row['address'] : '-') . '</td>';
-            echo '</tr>';
-            $counter++;
-        }
+                                        $counter = 1;
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                            echo '<tr>';
+                                            echo '<th scope="row">' . $counter . '</th>';
+                                            echo '<td class="col-md-2 col-xs-2">' . ($row['username'] ? $row['username'] : '-') . '</td>';
+                                            echo '<td class="col-md-2 col-xs-2">' . $row['email'] . '</td>';
+                                            echo '<td class="col-md-1 col-xs-1">' . ($row['job'] ? $row['job'] : '-') . '</td>';
+                                            echo '<td>' . ($row['age'] ? $row['age'] : '-') . '</td>';
+                                            echo '<td class="col-md-1 col-xs-1">' . ($row['gender'] ? $row['gender'] : '-') . '</td>';
+                                            echo '<td class="col-md-3 col-xs-3">' . ($row['address'] ? $row['address'] : '-') . '</td>';
+                                            echo '<td class="col-md-1 col-xs-1">' . ($row['responsiveness'] ? $row['responsiveness'] : '-') . '</td>';
+                                            echo '<td class="col-md-1 col-xs-1">' . ($row['empathy'] ? $row['empathy'] : '-') . '</td>';
+                                            echo '<td class="col-md-1 col-xs-1">' . ($row['tangible'] ? $row['tangible'] : '-') . '</td>';
+                                            echo '<td class="col-md-2 col-xs-2">' . ($row['kepuasan'] ? $row['kepuasan'] : '-') . '</td>';
+                                            echo '</tr>';
+                                            $counter++;
+                                        }
         echo '</tbody>
                 </table>
             </div>

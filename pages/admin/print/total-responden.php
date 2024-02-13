@@ -4,14 +4,16 @@ include_once("../../../validations/connection.php");
 
 try {
     // Query untuk mengambil data responden dari tabel users kecuali yang berperan sebagai admin
-    $query = "SELECT * FROM users WHERE role != 'admin'";
+    $query = "SELECT u.*, s.* FROM users u LEFT JOIN survey_form f ON u.id_user = f.id_user LEFT JOIN survey_results s ON f.id_form = s.id_form WHERE u.role != 'admin'";
+
+
     $result = mysqli_query($connect, $query);
 
     // Inisialisasi variabel nomor urut
     $nomor = 1;
 
     // Periksa apakah ada data yang ditemukan
-    if (mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0 ) {
         echo '<!DOCTYPE html>
         <html lang="en">
           <head>
@@ -69,31 +71,39 @@ try {
                         <tr>
                           <th>#</th>
                           <th class="col-md-2 col-xs-2">Nama Lengkap</th>
-                          <th class="col-md-2 col-xs-2">Pekerjaan</th>
+                          <th class="col-md-1 col-xs-1">Pekerjaan</th>
                           <th class="col-md-1 col-xs-1">Umur</th>
-                          <th class="col-md-2 col-xs-2">Jenis Kelamin</th>
-                          <th class="col-md-5 col-xs-5">Alamat</th>
+                          <th class="col-md-1 col-xs-1">Jenis Kelamin</th>
+                          <th class="col-md-3 col-xs-3">Alamat</th>
+                          <th class="col-md-1 col-xs-1">Responsiveness</th>
+                          <th class="col-md-1 col-xs-1">Empathy</th>
+                          <th class="col-md-1 col-xs-1">Tangible</th>
+                          <th class="col-md-1 col-xs-1">Kepuasan</th>
                         </tr>
-                        <tr class="warning no-result">
-                          <td colspan="4">
+                        <tr class="warning no-result text-center">
+                          <td colspan="11" class="py-4">
                             <i class="fa fa-warning"></i> Tidak ada hasil yang ditemukan
                           </td>
                         </tr>
                       </thead>
                       <tbody>';
         
-        // Loop melalui setiap baris hasil
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo '<tr>';
-            echo '<th scope="row">' . $nomor . '</th>';
-            echo '<td class="col-md-2 col-xs-2">' . $row['username'] . '</td>';
-            echo '<td class="col-md-2 col-xs-2">' . ($row['job'] ? $row['job'] : '-') . '</td>';
-            echo '<td class="col-md-1 col-xs-1">' . ($row['age'] ? $row['age'] : '-') . '</td>';
-            echo '<td class="col-md-2 col-xs-2">' . ($row['gender'] ? $row['gender'] : '-') . '</td>';
-            echo '<td class="col-md-5 col-xs-5">' . ($row['address'] ? $row['address'] : '-') . '</td>';
-            echo '</tr>';
-            $nomor++;
-        }
+                      // Loop melalui setiap baris hasil
+                      while ($row = mysqli_fetch_assoc($result)) {
+                          echo '<tr>';
+                          echo '<th scope="row">' . $nomor . '</th>';
+                          echo '<td class="col-md-2 col-xs-2">' . $row['username'] . '</td>';
+                          echo '<td class="col-md-1 col-xs-1">' . ($row['job'] ? $row['job'] : '-') . '</td>';
+                          echo '<td class="col-md-1 col-xs-1">' . ($row['age'] ? $row['age'] : '-') . '</td>';
+                          echo '<td class="col-md-1 col-xs-1">' . ($row['gender'] ? $row['gender'] : '-') . '</td>';
+                          echo '<td class="col-md-3 col-xs-3">' . ($row['address'] ? $row['address'] : '-') . '</td>';
+                          echo '<td class="col-md-1 col-xs-1">' . $row['responsiveness'] . '</td>';
+                          echo '<td class="col-md-1 col-xs-1">' . $row['empathy'] . '</td>';
+                          echo '<td class="col-md-1 col-xs-1">' . $row['tangible'] . '</td>';
+                          echo '<td class="col-md-1 col-xs-1">' . $row['kepuasan'] . '</td>';
+                          echo '</tr>';
+                          $nomor++;
+                      }
         
         echo '</tbody>
                 </table>
