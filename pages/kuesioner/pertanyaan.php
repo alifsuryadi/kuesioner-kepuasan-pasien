@@ -66,8 +66,9 @@ $id_user_last = $rowUserId['id_user'];
 
                     <div class="card">
                         <div class="card-body">
-                            <form id="myForm" action="../../validations/proses_survey.php" method="post"
+                            <form method="POST" id="myForm" action="rangkuman.php"
                                 enctype="application/x-www-form-urlencoded">
+
                                 <div class="content">
                                     <h3 class="card-title">Silahkan isi pertanyaan berikut</h3>
                                     <p class="card-subtitle">
@@ -154,7 +155,7 @@ $id_user_last = $rowUserId['id_user'];
     <script src="../../assets/scripts/main.js"></script>
     <script src="../../assets/scripts/kuesioner.js"></script>
     <script src="../../assets/scripts/slider-answer.js"></script>
-    <!-- <script>
+    <script>
     document
         .getElementById("next")
         .addEventListener("click", function(event) {
@@ -162,7 +163,8 @@ $id_user_last = $rowUserId['id_user'];
 
             document.querySelector("form").submit();
         });
-    </script> -->
+    </script>
+
 </body>
 
 </html>

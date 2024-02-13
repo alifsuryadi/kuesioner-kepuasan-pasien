@@ -1,3 +1,33 @@
+<?php
+// Include file koneksi ke database
+
+// var_dump($_POST);
+include "../../validations/connection.php";
+
+// Query untuk mengambil data kategori dari database
+$queryCategory = "SELECT * FROM categories";
+$resultCategory = mysqli_query($connect, $queryCategory);
+
+// Mengecek apakah query berhasil dieksekusi
+if (!$resultCategory) {
+    die("Query Error: " . mysqli_error($connect));
+}
+
+$queryUserId = "SELECT id_user FROM users ORDER BY id_user DESC LIMIT 1";
+$resultUserId = mysqli_query($connect, $queryUserId);
+
+// Mengecek apakah query berhasil dieksekusi
+if (!$resultUserId) {
+    die("Query Error: " . mysqli_error($connect));
+}
+
+// Mengambil ID pengguna terakhir
+$rowUserId = mysqli_fetch_assoc($resultUserId);
+$id_user_last = $rowUserId['id_user'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,150 +69,62 @@
 
                     <div class="card">
                         <div class="card-body">
-                            <div class="content">
-                                <h3 class="card-title">Rangkuman Jawaban Anda</h3>
-                                <p class="card-subtitle">
-                                    Terimakasih sudah mengisi kuesioner ini
-                                </p>
-                                <div class="category-question">
-                                    <div class="d-flex">
-                                        <hr class="my-auto flex-grow-1" />
-                                        <h4 class="elementor-divider px-4">
-                                            Keandalan (Reliability)
-                                        </h4>
-                                        <hr class="my-auto flex-grow-1" />
-                                    </div>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">1.</div>
-                                        <div class="question-text">
-                                            Seberapa puas Anda dengan kualitas pelayanan yang
-                                            diberikan?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">2.</div>
-                                        <div class="question-text">
-                                            Bagaimana penilaian Anda terhadap kecepatan respons tim
-                                            kami dalam menanggapi kebutuhan Anda?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">3.</div>
-                                        <div class="question-text">
-                                            Apakah Anda puas dengan ketersediaan fasilitas, layanan
-                                            tambahan, dan peralatan pendukung yang kami sediakan
-                                            untuk mendukung pengalaman Anda?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">4.</div>
-                                        <div class="question-text">
-                                            Apakah Anda puas dengan ketersediaan fasilitas dan
-                                            peralatan yang kami sediakan?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="category-question">
-                                    <div class="d-flex">
-                                        <hr class="my-auto flex-grow-1" />
-                                        <h4 class="elementor-divider px-4">
-                                            Daya Tanggap (Responsiveness)
-                                        </h4>
-                                        <hr class="my-auto flex-grow-1" />
-                                    </div>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">5.</div>
-                                        <div class="question-text">
-                                            Bagaimana penilaian Anda terhadap kecepatan respons tim
-                                            kami dalam menanggapi kebutuhan, pertanyaan, atau
-                                            keluhan Anda?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">6.</div>
-                                        <div class="question-text">
-                                            Apakah Anda merasa diperlakukan dengan ramah, sopan, dan
-                                            menghargai oleh staf kami selama berinteraksi dengan
-                                            layanan atau produk kami?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">7.</div>
-                                        <div class="question-text">
-                                            Apakah Anda merasa bahwa kebutuhan dan preferensi pasien
-                                            diprioritaskan dengan baik?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">8.</div>
-                                        <div class="question-text">
-                                            Bagaimana tingkat kepuasan Anda terhadap ketersediaan
-                                            fasilitas dan peralatan medis di RSUD Arosuka?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="category-question">
-                                    <div class="d-flex">
-                                        <hr class="my-auto flex-grow-1" />
-                                        <h4 class="elementor-divider px-4">
-                                            Jaminan (Assurance)
-                                        </h4>
-                                        <hr class="my-auto flex-grow-1" />
-                                    </div>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">9.</div>
-                                        <div class="question-text">
-                                            Seberapa baik Anda merasa diperlakukan oleh staf
-                                            administratif di RSUD Arosuka?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                                <div class="question-container">
-                                    <div class="question">
-                                        <div class="question-no">10.</div>
-                                        <div class="question-text">
-                                            Apakah Anda merasa bahwa Anda mendapatkan nilai yang
-                                            sepadan dengan biaya perawatan yang Anda terima di RSUD
-                                            Arosuka?
-                                        </div>
-                                    </div>
-                                    <p class="answer">Jawaban anda : <span>50</span></p>
-                                </div>
-                            </div>
+                            <form id="myForm" action="../../validations/proses_survey.php" method="post">
+                                <div class="content">
+                                    <h3 class="card-title">Rangkuman Jawaban Anda</h3>
+                                    <p class="card-subtitle">
+                                        Terimakasih sudah mengisi kuesioner ini
+                                    </p>
 
-                            <div class="button">
-                                <a href="pertanyaan.php" class="btn btn-secondary" id="prev">Kembali</a>
-                                <a href="terimakasih.php" class="btn btn-primary" id="next">
-                                    Selesai
-                                </a>
-                            </div>
+                                    <input type="hidden" name="id_user" value="<?php echo $_POST['id_user']; ?>">
+
+                                    <!-- Loop through categories -->
+                                    <?php while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
+                                    <div class="category-question">
+                                        <!-- Display category name -->
+                                        <h4 class="elementor-divider px-4"><?php echo $rowCategory['category']; ?></h4>
+                                    </div>
+                                    <!-- Query for fetching questions based on category -->
+                                    <?php
+                                        $categoryId = $rowCategory['id_category'];
+                                        $queryQuestion = "SELECT * FROM questions WHERE id_category = $categoryId";
+                                        $resultQuestion = mysqli_query($connect, $queryQuestion);
+
+                                        // Mengecek apakah query berhasil dieksekusi
+                                        if (!$resultQuestion) {
+                                            die("Query Error: " . mysqli_error($connect));
+                                        }
+                                     ?>
+
+                                    <!-- Iterating through questions to display them -->
+                                    <?php while ($rowQuestion = mysqli_fetch_assoc($resultQuestion)) : ?>
+                                    <div class="question-container">
+                                        <!-- Display question number and text -->
+                                        <div class="question">
+                                            <div class="question-no"><?php echo $rowQuestion['id_question']; ?>.</div>
+                                            <div class="question-text"><?php echo $rowQuestion['question']; ?></div>
+                                        </div>
+                                        <!-- Display answer -->
+                                        <p class="answer">Jawaban anda :
+                                            <span><?php echo $_POST['Q' . $rowQuestion['id_question']]; ?></span>
+                                        </p>
+                                        <!-- Input hidden for answer -->
+                                        <input type="hidden" name="Q<?php echo $rowQuestion['id_question']; ?>"
+                                            value="<?php echo $_POST['Q' . $rowQuestion['id_question']]; ?>">
+                                    </div>
+                                    <?php endwhile; ?>
+                                    <?php endwhile; ?>
+
+
+                                </div>
+
+                                <div class="button">
+                                    <a href="pertanyaan.php" class="btn btn-secondary" id="prev">Kembali</a>
+                                    <button type="submit" class="btn btn-primary" id="next">
+                                        Selesai
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -199,6 +141,16 @@
 
     <script src="../../assets/scripts/main.js"></script>
     <script src="../../assets/scripts/kuesioner.js"></script>
+    <script>
+    document
+        .getElementById("next")
+        .addEventListener("click", function(event) {
+            event.preventDefault();
+
+            document.querySelector("form").submit();
+        });
+    </script>
+
 </body>
 
 </html>

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = "pertanyaan.php";
     } else if (currentActive === 4) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "../../validations/proses_survey.php";
+      window.location.href = "rangkuman.php";
     }
   });
 
