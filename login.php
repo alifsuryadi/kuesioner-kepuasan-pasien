@@ -23,7 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             session_start();
             $_SESSION['email'] = $email;
             // Redirect to the admin dashboard
-            header("Location: ./pages/admin/index.php");
+            $_SESSION['logged_in'] = true;
+            header("Location: ./index.php");
+
+            
             exit();
         } else {
             // Redirect back to login page with error message
@@ -149,6 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.querySelector('.alert').style.display = 'none';
     }, 5000);
     </script>
+
 
 </body>
 

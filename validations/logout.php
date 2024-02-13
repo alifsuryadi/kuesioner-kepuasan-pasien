@@ -8,6 +8,7 @@ session_unset();
 session_destroy();
 
 // Redirect ke halaman login
+$_SESSION['logged_in'] = false;
 header("Location: ../login.php");
 exit();
 ?>

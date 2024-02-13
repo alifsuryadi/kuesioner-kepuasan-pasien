@@ -38,7 +38,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="./index.php">Beranda</a>
+                            <a class="nav-link" href="../../index.php">Beranda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./hasil-kuesioner.php">Hasil Kuesioner</a>
@@ -50,11 +50,11 @@
                             <a class="nav-link" href="./pengujian.php">Pengujian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./tentang-kami.php">Tentang Kami</a>
+                            <a class="nav-link" href="../../tentang-kami.php">Tentang Kami</a>
                         </li>
                     </ul>
                     <div class="text-center btn-logout">
-                        <a href="../../index.php" class="btn btn-secondary">Keluar</a>
+                        <a href="../../validations/logout.php" class="btn btn-secondary">Keluar</a>
                     </div>
                 </div>
             </div>
@@ -71,8 +71,29 @@
                                 <a href="./print/total-responden.php">
                                     <div class="card">
                                         <div class="card-body">
-                                            <span data-purecounter-start="0" data-purecounter-end="44"
-                                                data-purecounter-duration="1" class="purecounter"></span>
+
+                                            <?php
+                                                // Include file koneksi
+                                                include "../../validations/connection.php";
+                                                
+                                                // Query untuk menghitung total responden
+                                                $sql = "SELECT COUNT(*) AS total_responden FROM users";
+                                                $result = mysqli_query($connect, $sql);
+
+                                                if ($result) {
+                                                    // Ambil hasil query
+                                                    $row = mysqli_fetch_assoc($result);
+                                                    $total_responden = $row["total_responden"];
+
+                                                    // Tampilkan total responden
+                                                    echo '<span data-purecounter-start="0" data-purecounter-end="' . $total_responden . '" data-purecounter-duration="1" class="purecounter"></span>';
+                                                } else {
+                                                    echo "0 results";
+                                                }
+
+                                            ?>
+                                            <!-- <span data-purecounter-start="0" data-purecounter-end="44"
+                                                data-purecounter-duration="1" class="purecounter"></span> -->
                                             <p class="card-text">Total Responden</p>
                                         </div>
                                     </div>
@@ -82,8 +103,27 @@
                                 <a href="./print/responden-puas.php">
                                     <div class="card">
                                         <div class="card-body">
-                                            <span data-purecounter-start="0" data-purecounter-end="28"
-                                                data-purecounter-duration="1.5" class="purecounter"></span>
+
+                                            <?php
+
+                                            // Query untuk menghitung jumlah responden yang puas
+                                            $sql = "SELECT COUNT(*) AS total_puas FROM survey_results WHERE kepuasan = 'Puas'";
+                                            $result = mysqli_query($connect, $sql);
+
+                                            if ($result) {
+                                                // Ambil hasil query
+                                                $row = mysqli_fetch_assoc($result);
+                                                $total_puas = $row["total_puas"];
+
+                                                // Tampilkan jumlah responden yang puas
+                                                echo '<span data-purecounter-start="0" data-purecounter-end="' . $total_puas . '" data-purecounter-duration="1.5" class="purecounter"></span>';
+                                            } else {
+                                                echo "0 results";
+                                            }
+
+                                            ?>
+                                            <!-- <span data-purecounter-start="0" data-purecounter-end="28"
+                                                data-purecounter-duration="1.5" class="purecounter"></span> -->
                                             <p class="card-text">Responden Puas</p>
                                         </div>
                                     </div>
@@ -93,8 +133,27 @@
                                 <a href="./print/responden-tidak-puas.php">
                                     <div class="card">
                                         <div class="card-body">
-                                            <span data-purecounter-start="0" data-purecounter-end="16"
-                                                data-purecounter-duration="2" class="purecounter"></span>
+
+                                            <?php
+                                            
+                                            // Query untuk menghitung jumlah responden yang tidak puas
+                                            $sql = "SELECT COUNT(*) AS total_tidak_puas FROM survey_results WHERE kepuasan  != 'Puas'";
+                                            $result = mysqli_query($connect, $sql);
+
+                                            if ($result) {
+                                                // Ambil hasil query
+                                                $row = mysqli_fetch_assoc($result);
+                                                $total_tidak_puas = $row["total_tidak_puas"];
+
+                                                // Tampilkan jumlah responden yang tidak puas
+                                                echo '<span data-purecounter-start="0" data-purecounter-end="' . $total_tidak_puas . '" data-purecounter-duration="2" class="purecounter"></span>';
+                                            } else {
+                                                echo "0 results";
+                                            }
+
+                                            ?>
+                                            <!-- <span data-purecounter-start="0" data-purecounter-end="16"
+                                                data-purecounter-duration="2" class="purecounter"></span> -->
                                             <p class="card-text">Responden Tidak Puas</p>
                                         </div>
                                     </div>
@@ -104,8 +163,27 @@
                                 <a href="./print/responden-terdaftar.php">
                                     <div class="card">
                                         <div class="card-body">
-                                            <span data-purecounter-start="0" data-purecounter-end="14"
-                                                data-purecounter-duration="2.5" class="purecounter"></span>
+
+                                            <?php
+                                            
+                                            // Query untuk menghitung jumlah responden terdaftar
+                                            $sql = "SELECT COUNT(*) AS total_terdaftar FROM users WHERE LENGTH(email) >= 5 AND role = 'user'";
+                                            $result = mysqli_query($connect, $sql);
+
+                                            if ($result) {
+                                                // Ambil hasil query
+                                                $row = mysqli_fetch_assoc($result);
+                                                $total_terdaftar = $row["total_terdaftar"];
+
+                                                // Tampilkan jumlah responden terdaftar
+                                                echo '<span data-purecounter-start="0" data-purecounter-end="' . $total_terdaftar . '" data-purecounter-duration="2.5" class="purecounter"></span>';
+                                            } else {
+                                                echo "0 results";
+                                            }
+
+                                            ?>
+                                            <!-- <span data-purecounter-start="0" data-purecounter-end="14"
+                                                data-purecounter-duration="2.5" class="purecounter"></span> -->
                                             <p class="card-text">Responden Terdaftar</p>
                                         </div>
                                     </div>
@@ -115,8 +193,26 @@
                                 <a href="./print/responden-laki-laki.php">
                                     <div class="card">
                                         <div class="card-body">
-                                            <span data-purecounter-start="0" data-purecounter-end="7"
-                                                data-purecounter-duration="3" class="purecounter"></span>
+                                            <?php
+                                            
+                                            // Query untuk menghitung jumlah responden laki-laki
+                                            $sql = "SELECT COUNT(*) AS total_laki_laki FROM users WHERE gender = 'Laki-laki'";
+                                            $result = mysqli_query($connect, $sql);
+
+                                            if ($result) {
+                                                // Ambil hasil query
+                                                $row = mysqli_fetch_assoc($result);
+                                                $total_laki_laki = $row["total_laki_laki"];
+
+                                                // Tampilkan jumlah responden laki-laki
+                                                echo '<span data-purecounter-start="0" data-purecounter-end="' . $total_laki_laki . '" data-purecounter-duration="3" class="purecounter"></span>';
+                                            } else {
+                                                echo "0 results";
+                                            }
+
+                                            ?>
+                                            <!-- <span data-purecounter-start="0" data-purecounter-end="7"
+                                                data-purecounter-duration="3" class="purecounter"></span> -->
                                             <p class="card-text">Responden Laki-Laki</p>
                                         </div>
                                     </div>
@@ -126,8 +222,28 @@
                                 <a href="./print/responden-perempuan.php">
                                     <div class="card">
                                         <div class="card-body">
-                                            <span data-purecounter-start="0" data-purecounter-end="7"
-                                                data-purecounter-duration="3.5" class="purecounter"></span>
+                                            <?php
+
+                                            // Query untuk menghitung jumlah responden laki-laki
+                                            $sql = "SELECT COUNT(*) AS total_perempuan FROM users WHERE gender = 'Perempuan'";
+                                            $result = mysqli_query($connect, $sql);
+
+                                            if ($result) {
+                                                // Ambil hasil query
+                                                $row = mysqli_fetch_assoc($result);
+                                                $total_perempuan = $row["total_perempuan"];
+
+                                                // Tampilkan jumlah responden laki-laki
+                                                echo '<span data-purecounter-start="0" data-purecounter-end="' . $total_perempuan . '" data-purecounter-duration="3.5" class="purecounter"></span>';
+                                            } else {
+                                                echo "0 results";
+                                            }
+
+                                            // Tutup koneksi
+                                            mysqli_close($connect);
+                                            ?>
+                                            <!-- <span data-purecounter-start="0" data-purecounter-end="7"
+                                                data-purecounter-duration="3.5" class="purecounter"></span> -->
                                             <p class="card-text">Responden Perempuan</p>
                                         </div>
                                     </div>

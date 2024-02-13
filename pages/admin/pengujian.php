@@ -38,7 +38,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="./index.php">Beranda</a>
+                            <a class="nav-link" href="../../index.php">Beranda</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./hasil-kuesioner.php">Hasil Kuesioner</a>
@@ -50,11 +50,11 @@
                             <a class="nav-link active" href="./pengujian.php">Pengujian</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./tentang-kami.php">Tentang Kami</a>
+                            <a class="nav-link" href="../../tentang-kami.php">Tentang Kami</a>
                         </li>
                     </ul>
                     <div class="text-center btn-logout">
-                        <a href="../../index.php" class="btn btn-secondary">Keluar</a>
+                        <a href="../../validations/logout.php" class="btn btn-secondary">Keluar</a>
                     </div>
                 </div>
             </div>

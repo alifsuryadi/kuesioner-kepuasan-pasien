@@ -1,3 +1,8 @@
+<?php
+// Mulai Sesi
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,6 +39,8 @@
                     </span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
+
+                    <?php if (!isset($_SESSION['logged_in'])) : ?>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active" href="./index.php">Beranda</a>
@@ -45,6 +52,31 @@
                             <a class="nav-link" href="./login.php">Login Admin</a>
                         </li>
                     </ul>
+                    <?php endif; ?>
+
+                    <!-- Sudah login -->
+                    <?php if (isset($_SESSION['logged_in'])) : ?>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./index.php">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/admin/hasil-kuesioner.php">Hasil Kuesioner</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/admin/kelola-pertanyaan.php">Pertanyaan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/admin/pengujian.php">Pengujian</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./tentang-kami.php">Tentang Kami</a>
+                        </li>
+                    </ul>
+                    <div class="text-center btn-logout">
+                        <a href="./validations/logout.php" class="btn btn-secondary">Keluar</a>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </nav>
