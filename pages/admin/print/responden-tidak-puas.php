@@ -6,10 +6,6 @@ include_once("../../../validations/connection.php");
 $data_survey_form = [];
 try {
     // Lakukan kueri SQL untuk mengambil data dari tabel survey_form dan nama lengkap dari tabel users
-    // $query = "SELECT sf.*, sr.Kepuasan, u.username AS nama_lengkap
-    //           FROM survey_form sf
-    //           LEFT JOIN users u ON sf.id_user = u.id_user
-    //           LEFT JOIN survey_results sr ON sf.id_form = sr.id_form";
       $query = "SELECT sf.*, sr.Kepuasan, u.username AS nama_lengkap
               FROM survey_form sf
               LEFT JOIN users u ON sf.id_user = u.id_user
@@ -111,10 +107,19 @@ $total_questions = $row['total'];
                                     echo '<td>' . ($key + 1) . '</td>';
                                     echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['nama_lengkap']) ? $survey_form['nama_lengkap'] : '') . '</td>';
 
-                                    // Tampilkan nilai Q1 hingga Q10
-                                    for ($i = 1; $i <= 11; $i++) {
-                                        echo '<td>' . (isset($survey_form['Q' . $i]) ? $survey_form['Q' . $i] : '') . '</td>';
+
+                                    // Tampilkan nilai pertanyaan
+                                    for ($i = 1; $i <= $total_questions; $i++) {
+                                        $question_key = 'Q' . $i;
+                                        // Periksa apakah pertanyaan ada dalam data
+                                        if (isset($survey_form[$question_key])) {
+                                            echo '<td>' . $survey_form[$question_key] . '</td>';
+                                        } else {
+                                            // Jika pertanyaan tidak ada, tambahkan kolom default dengan nilai "-"
+                                            echo '<td>-</td>';
+                                        }
                                     }
+                                    
                                     echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['Kepuasan']) ? $survey_form['Kepuasan'] : '') . '</td>';
 
                                     echo '</tr>';

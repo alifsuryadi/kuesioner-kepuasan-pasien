@@ -17,17 +17,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     update();
 
-    // Halaman
-    if (currentActive === 2) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "";
-    } else if (currentActive === 3) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "pertanyaan.php";
-      // } else if (currentActive === 4) {
-      //   localStorage.setItem("currentActive", currentActive);
-      //   window.location.href = "";
-    }
+    // // Halaman
+    // if (currentActive === 2) {
+    //   localStorage.setItem("currentActive", currentActive);
+    //   window.location.href = "";
+    // } else if (currentActive === 3) {
+    //   localStorage.setItem("currentActive", currentActive);
+    //   window.location.href = "pertanyaan.php";
+    //   // } else if (currentActive === 4) {
+    //   //   localStorage.setItem("currentActive", currentActive);
+    //   //   window.location.href = "";
+    // }
   });
 
   prev.addEventListener("click", () => {

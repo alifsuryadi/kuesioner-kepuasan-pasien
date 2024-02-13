@@ -38,7 +38,7 @@
                     <!-- Content -->
                     <div class="card">
                         <div class="card-body">
-                            <form id="myForm" action="../../validations/proses_biodata.php" method="post"
+                            <form id="myForm" action="./cara-pengisian.php" method="post"
                                 enctype="application/x-www-form-urlencoded">
                                 <div class="content">
                                     <h3 class="card-title">Masukan Biodata Anda</h3>

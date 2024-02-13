@@ -83,10 +83,28 @@
                                 </p>
                             </div>
 
-                            <div class="button">
-                                <a href="biodata.php" class="btn btn-secondary" id="prev">Kembali</a>
-                                <a href="pertanyaan.php" class="btn btn-primary" id="next">Lanjutkan</a>
-                            </div>
+                            <form action="./pertanyaan.php" method="post">
+
+                                <input type="hidden" name="email"
+                                    value="<?php echo isset($_POST['email']) ? $_POST['email'] : null; ?>">
+                                <input type="hidden" name="username"
+                                    value="<?php echo isset($_POST['username']) ? $_POST['username'] : null; ?>">
+                                <input type="hidden" name="gender"
+                                    value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : null; ?>">
+                                <input type="hidden" name="job"
+                                    value="<?php echo isset($_POST['job']) ? $_POST['job'] : null; ?>">
+                                <input type="hidden" name="age"
+                                    value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
+                                <input type="hidden" name="address"
+                                    value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
+
+
+                                <div class="button">
+                                    <a href="biodata.php" class="btn btn-secondary" id="prev">Kembali</a>
+                                    <button type="submit" class="btn btn-primary" id="next">Lanjutkan</button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -104,6 +122,15 @@
     <script src="../../assets/scripts/main.js"></script>
     <script src="../../assets/scripts/kuesioner.js"></script>
     <script src="../../assets/scripts/slider-answer.js"></script>
+    <script>
+    document
+        .getElementById("next")
+        .addEventListener("click", function(event) {
+            event.preventDefault();
+
+            document.querySelector("form").submit();
+        });
+    </script>
 </body>
 
 </html>

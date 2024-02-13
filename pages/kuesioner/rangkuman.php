@@ -23,7 +23,7 @@ if (!$resultUserId) {
 
 // Mengambil ID pengguna terakhir
 $rowUserId = mysqli_fetch_assoc($resultUserId);
-$id_user_last = $rowUserId['id_user'];
+$id_user_last = $rowUserId['id_user'] + 1;
 
 
 ?>
@@ -75,6 +75,20 @@ $id_user_last = $rowUserId['id_user'];
                                     <p class="card-subtitle">
                                         Terimakasih sudah mengisi kuesioner ini
                                     </p>
+
+                                    <input type="hidden" name="email"
+                                        value="<?php echo isset($_POST['email']) ? $_POST['email'] : null; ?>">
+                                    <input type="hidden" name="username"
+                                        value="<?php echo isset($_POST['username']) ? $_POST['username'] : null; ?>">
+                                    <input type="hidden" name="gender"
+                                        value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : null; ?>">
+                                    <input type="hidden" name="job"
+                                        value="<?php echo isset($_POST['job']) ? $_POST['job'] : null; ?>">
+                                    <input type="hidden" name="age"
+                                        value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
+                                    <input type="hidden" name="address"
+                                        value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
+
 
                                     <input type="hidden" name="id_user" value="<?php echo $_POST['id_user']; ?>">
 

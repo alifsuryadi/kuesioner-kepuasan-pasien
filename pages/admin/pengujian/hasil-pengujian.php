@@ -99,10 +99,10 @@ try {
                   echo '<div class="card-subtitle">Output :</div>';
                   echo '<div class="card-text">';
                   echo '<div class="row">';
-                  echo '<div class="col-9">Nilai Z</div>';
-                  echo '<div class="col-3">: ' . $pengujian['nilai_z'] . '</div>';
-                  echo '<div class="col-9">Kepuasan</div>';
-                  echo '<div class="col-3">: ' . $pengujian['kepuasan'] . '</div>';
+                  echo '<div class="col-8">Nilai Z</div>';
+                  echo '<div class="col-4">: ' . $pengujian['nilai_z'] . '</div>';
+                  echo '<div class="col-8">Kepuasan</div>';
+                  echo '<div class="col-4">: ' . $pengujian['kepuasan'] . '</div>';
                   echo '</div>';
                   echo '</div>';
                   echo '</div>';

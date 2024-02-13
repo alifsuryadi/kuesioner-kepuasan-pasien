@@ -1,7 +1,6 @@
 <?php
 include "./connection.php"; // Menghubungkan ke database
 
-
 // Fuzzyfikasi untuk menentukan kepuasan berdasarkan nilai
 $Reliability = 0;
 $Responsiveness = 0;
@@ -9,6 +8,34 @@ $Assurance = 0;
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    // Proses Biodata
+    // Mengambil nilai yang dikirimkan dari formulir
+    $email = isset($_POST["email"]) ? $_POST["email"] : null; 
+    $gender = isset($_POST["gender"]) ? $_POST["gender"] : null;
+    $job = isset($_POST["job"]) ? $_POST["job"] : null;
+    $age = isset($_POST["age"]) ? $_POST["age"] : null;
+    $address = isset($_POST["address"]) ? $_POST["address"] : null;
+    $role = "user";
+
+    // Buat username dari email jika email diisi, jika tidak, gunakan format "user" diikuti dengan ID pengguna
+    $username = isset($_POST["username"]) ? $_POST["username"] : null;
+    if (!$username) {
+        // Jika username tidak diisi, buat username dengan format "user" diikuti dengan ID pengguna
+        $sql_get_last_user_id = "SELECT id_user FROM users ORDER BY id_user DESC LIMIT 1";
+        $result = $connect->query($sql_get_last_user_id);
+        $new_user_id = ($result->num_rows > 0) ? $result->fetch_assoc()["id_user"] + 1 : 1;
+        $username = "user" . $new_user_id;
+    }
+
+    // Menyiapkan pernyataan SQL untuk memasukkan data ke tabel users
+    $sql_insert_user = "INSERT INTO `users` (`email`, `password`, `role`, `gender`, `job`, `age`, `address`, `username`) 
+                        VALUES ('$email', '', '$role', '$gender', '$job', '$age', '$address', '$username')";
+    
+
+    // ---------------------------------------------------------------- //
+    // Table Survey_form
+
     // Mengambil nilai yang dikirimkan dari formulir
     $id_user = $_POST["id_user"];
 
@@ -25,6 +52,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+
+    // Table Survey_results
+    $countReliability = 0;
+    $countResponsiveness = 0;
+    $countAssurance = 0;
+
     // Loop melalui data formulir untuk menghitung nilai kategori
     for ($i = 1; $i <= 30; $i++) {
         $question_key = 'Q' . $i;
@@ -37,16 +70,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $category_id = $row['id_category'];
                 // Menambahkan nilai jawaban ke kategori yang sesuai
                 if ($category_id == 1) {
+                    $countReliability++;
                     $Reliability += $_POST[$question_key];
                 } elseif ($category_id == 2) {
+                    $countResponsiveness++;
                     $Responsiveness += $_POST[$question_key];
                 } elseif ($category_id == 3) {
+                    $countAssurance++;
                     $Assurance += $_POST[$question_key];
                 }
             }
         }
     }
 
+    // ----------------------------------------------------------------//
     // Survey_form
     // Mengonversi array jawaban menjadi format yang sesuai untuk dimasukkan ke dalam database
     $answer_values = implode(', ', $answers);
@@ -61,70 +98,145 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Table survey_results
-    //fuzzyfikasi---------------------------------------------------
-    $Rel_tinggi=($Reliability-5)/(50-5);
-    $Rel_rendah=(50-$Reliability)/(50-5);
 
-    $Res_tinggi=($Responsiveness-5)/(50-5);
-    $Res_rendah=(50-$Responsiveness)/(50-5);
-
-    $As_tinggi=($Assurance-5)/(50-5);
-    $As_rendah=(50-$Assurance)/(50-5);
+    // Defuzzifikasi
+    // Rata-rata =  Total / Jumlah Data
+    $RataReliability = $Reliability / $countReliability;
+    $RataResponsiveness = $Responsiveness / $countResponsiveness;
+    $RataAssurance = $Assurance / $countAssurance;
 
 
-    //Inference Engine---------------------------------------------
-    //alfa prediket---------------------------------------------------
-    $a1 = min($Rel_tinggi, $Res_tinggi, $As_tinggi); // Sangat Puas
-    $z1 = 50 + ($a1 * (100 - 50));
-
-    $a2 = min($Rel_tinggi, $Res_tinggi, $As_rendah); // Puas
-    $z2 = 35 + ($a2 * (50 - 35));
-
-    $a3 = min($Rel_tinggi, $Res_rendah, $As_tinggi); // Puas
-    $z3 = 35 + ($a3 * (50 - 35));
-
-    $a4 = min($Rel_rendah, $Res_tinggi, $As_tinggi); // Puas
-    $z4 = 35 + ($a4 * (50 - 35));
-
-    $a5 = min($Rel_tinggi, $Res_tinggi, $As_rendah); // Cukup Puas
-    $z5 = 20 + ($a5 * (35 - 20));
-
-    $a6 = min($Rel_tinggi, $Res_rendah, $As_rendah); // Cukup Puas
-    $z6 = 20 + ($a6 * (35 - 20));
-
-    $a7 = min($Rel_rendah, $Res_tinggi, $As_tinggi); // Cukup Puas
-    $z7 = 20 + ($a7 * (35 - 20));
-
-    $a8 = min($Rel_tinggi, $Res_rendah, $As_tinggi); // Cukup Puas
-    $z8 = 20 + ($a8 * (35 - 20));
-
-    $a9 = min($Rel_tinggi, $Res_rendah, $As_rendah); // Kecewa
-    $z9 = 5 + ($a9 * (20 - 5));
-
-    $a10 = min($Rel_rendah, $Res_rendah, $As_tinggi); // Kecewa
-    $z10 = 5 + ($a10 * (20 - 5));
-
-    $a11 = min($Rel_rendah, $Res_tinggi, $As_rendah); // Kecewa
-    $z11 = 5 + ($a11 * (20 - 5));
-
-    $a12 = min($Rel_tinggi, $Res_rendah, $As_rendah); // Kecewa
-    $z12 = 5 + ($a12 * (20 - 5));
-
-
-    // Defuzzyfication
-    $z = (($a1 * $z1) + ($a2 * $z2) + ($a3 * $z3) + ($a4 * $z4) + ($a5 * $z5) + ($a6 * $z6) + ($a7 * $z7) + ($a8 * $z8) + ($a9 * $z9) + ($a10 * $z10) + ($a11 * $z11) + ($a12 * $z12)) / ($a1 + $a2 + $a3 + $a4 + $a5 + $a6 + $a7 + $a8 + $a9 + $a10 + $a11 + $a12);
-
-    // Menentukan tingkat kepuasan berdasarkan nilai z
-    if ($z >= 42.5) {
-        $himKepuasan = "Sangat Puas";
-    } else if ($z >= 27.5) {
-        $himKepuasan = "Puas";
-    } else if ($z >= 12.5) {
-        $himKepuasan = "Cukup Puas";
-    } else {
-        $himKepuasan = "Kecewa";
+    // Fuzzyfikasi
+    $hasilReliability = "";
+    if ($RataReliability >= 70){
+          $hasilReliability = "Baik";
+    }else if ($RataReliability >= 40){
+         $hasilReliability = "Cukup Baik";
+    }else{
+         $hasilReliability = "Tidak Baik";
     }
 
+    $hasilResponsiveness = "";
+    if ($RataResponsiveness >= 70){
+          $hasilResponsiveness = "Baik";
+    }else if ($RataResponsiveness >= 70){
+         $hasilResponsiveness = "Cukup Baik";
+    }else{
+         $hasilResponsiveness = "Tidak Baik";
+    }
+
+    $hasilAssurance = "";
+    if ($RataAssurance >= 70){
+          $hasilAssurance = "Baik";
+    }else if ($RataAssurance >= 40){
+         $hasilAssurance = "Cukup Baik";
+    }else{
+         $hasilAssurance = "Tidak Baik";
+    }
+
+
+    // Inferense
+    $kepuasan = "";
+    if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Tidak Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Cukup Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Tidak Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Cukup Baik" && $hasilAssurance == "Tidak Baik" ){
+        $kepuasan = "Tidak Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Cukup Baik" ){
+        $kepuasan = "Puas";
+    }
+    else if ($hasilReliability == "Baik" && $hasilResponsiveness == "Baik" && $hasilAssurance == "Baik" ){
+        $kepuasan = "Puas";
+    }
+    else{
+        $kepuasan = "Ada inputan yang salah";
+    }
+
+    
+    //Alfa prediket--------------------------------------------------
+    $alfa = min($RataReliability, $RataResponsiveness, $RataAssurance);
+    $alfaSederhana = $alfa / 100;
+
+    $nilai_z = 0;
+    if ($kepuasan == "Puas"){
+        $nilai_z = 33+($alfaSederhana*(67-33));  //puas
+    }
+    else if ($kepuasan == "Tidak Puas"){
+        $nilai_z = 67-($alfaSederhana*(67-33));  //tidak puas
+    }
+    else{
+        $nilai_z = 0;
+    }
 
 
     // Menyiapkan pernyataan SQL untuk mendapatkan id_form terakhir
@@ -136,10 +248,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Menyiapkan pernyataan SQL untuk memasukkan data hasil survey ke dalam tabel survey_results
     $sql_insert_result = "INSERT INTO `survey_results` (`id_form`, `created_at`, `reliability`, `responsiveness`, `assurance`, `nilai_z`, `kepuasan`) 
-                            VALUES ('$next_id', NOW(), '$Reliability', '$Responsiveness', '$Assurance', '$z', '$himKepuasan')";
-                            
+                            VALUES ('$next_id', NOW(), '$RataReliability', '$RataResponsiveness', '$RataAssurance', '$nilai_z', '$kepuasan')";
+         
     // Memasukkan data kuesioner ke dalam tabel survey_form
-    if ($connect->query($sql_insert_survey) === TRUE && $connect->query($sql_insert_result) === TRUE) {
+    if ($connect->query($sql_insert_user) === TRUE && $connect->query($sql_insert_survey) === TRUE && $connect->query($sql_insert_result) === TRUE ) {
         // Jika berhasil disimpan, alihkan pengguna ke halaman rangkuman
         header("Location: ../pages/kuesioner/terimakasih.php");
         exit();
