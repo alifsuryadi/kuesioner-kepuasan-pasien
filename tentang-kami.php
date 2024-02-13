@@ -16,24 +16,21 @@
     <meta name="robots" content="index, follow" />
     <meta name="language" content="Indonesia" />
 
-    <title>Pengujian - Kuesioner</title>
+    <title>Tentang Kami - Kuesioner</title>
 
-    <link href="../../assets/images/favicon/favicon.ico" rel="icon" />
+    <link href="./assets/images/favicon/favicon.ico" rel="icon" />
     <link
-      href="../../assets/images/favicon/apple-touch-icon.png"
+      href="./assets/images/favicon/apple-touch-icon.png"
       rel="apple-touch-icon"
     />
 
-    <link rel="stylesheet" href="../../assets/styles/main.css" />
+    <link rel="stylesheet" href="./assets/styles/main.css" />
     <link
-      href="../../vendor/bootstrap-icons/bootstrap-icons.css"
+      href="./vendor/bootstrap-icons/bootstrap-icons.css"
       rel="stylesheet"
     />
-    <link href="../../vendor/aos/aos.css" rel="stylesheet" />
-    <link
-      href="../../vendor/glightbox/css/glightbox.min.css"
-      rel="stylesheet"
-    />
+    <link href="./vendor/aos/aos.css" rel="stylesheet" />
+    <link href="./vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
   </head>
   <body>
     <!-- Navbar -->
@@ -57,28 +54,17 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link" href="./index.html">Beranda</a>
+                <a class="nav-link" href="./index.php">Beranda</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="./hasil-kuesioner.html"
-                  >Hasil Kuesioner</a
+                <a class="nav-link active" href="./tentang-kami.php"
+                  >Tentang Kami</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="./kelola-pertanyaan.html"
-                  >Pertanyaan</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./pengujian.html">Pengujian</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="./tentang-kami.html">Tentang Kami</a>
+                <a class="nav-link" href="./login.php">Login Admin</a>
               </li>
             </ul>
-            <div class="text-center btn-logout">
-              <a href="../../index.html" class="btn btn-secondary">Keluar</a>
-            </div>
           </div>
         </div>
       </nav>
@@ -87,22 +73,27 @@
     <main>
       <section id="hero" class="hero section-bg">
         <div class="content" data-aos="fade-up">
-          <h2 class="title">
-            KELOLA PERTANYAAN UNTUK MENILAI TINGKAT KEPUASAN PASIEN
-          </h2>
-          <a href="./pertanyaan/kelola-pertanyaan.html" class="btn btn-primary"
-            >Kelola Pertanyaan</a
-          >
+          <h2 class="title">RSUD AROSUKA</h2>
+          <p class="text-content mb-5 col-12 col-lg-8">
+            RSUD AROSUKA adalah lembaga pelayanan kesehatan yang berkomitmen
+            untuk memberikan layanan terbaik kepada masyarakat sejak didirikan.
+            <br />
+            Kami menyediakan berbagai layanan kesehatan yang mencakup perawatan
+            medis, pelayanan rawat inap, operasi, konsultasi dokter, dan beragam
+            fasilitas penunjang lainnya. Dengan tim medis yang berpengalaman dan
+            fasilitas yang memadai, kami bertekad untuk menjadi mitra terpercaya
+            dalam upaya menjaga kesehatan dan kesejahteraan masyarakat.
+          </p>
         </div>
         <div class="card-slider">
           <a
             class="glightbox"
-            href="../../assets/images/background-rs.png"
+            href="./assets/images/background-rs.png"
             type="image"
             slideEffect="slide"
           >
             <img
-              src="../../assets/images/background-rs-bundar.png"
+              src="./assets/images/background-rs-bundar.png"
               alt="Rumah sakit"
               class="image-container"
           /></a>
@@ -112,12 +103,12 @@
 
     <!-- Vendor JS Files -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="../../vendor/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../vendor/aos/aos.js"></script>
-    <script src="../../vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="../../vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="./vendor/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./vendor/aos/aos.js"></script>
+    <script src="./vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="./vendor/purecounter/purecounter_vanilla.js"></script>
 
-    <script src="../../assets/scripts/navbar.js"></script>
-    <script src="../../assets/scripts/main.js"></script>
+    <script src="./assets/scripts/navbar.js"></script>
+    <script src="./assets/scripts/main.js"></script>
   </body>
 </html>

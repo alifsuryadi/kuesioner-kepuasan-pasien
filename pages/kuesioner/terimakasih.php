@@ -50,7 +50,7 @@
               </p>
             </div>
             <div class="col-12">
-              <a href="../../index.html" class="btn btn-primary">Beranda</a>
+              <a href="../../index.php" class="btn btn-primary">Beranda</a>
             </div>
           </div>
         </div>

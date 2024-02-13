@@ -20,13 +20,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // Halaman
     if (currentActive === 2) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "cara-pengisian.html";
+      window.location.href = "cara-pengisian.php";
     } else if (currentActive === 3) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "pertanyaan.html";
+      window.location.href = "pertanyaan.php";
     } else if (currentActive === 4) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "rangkuman.html";
+      window.location.href = "rangkuman.php";
     }
   });
 
@@ -45,10 +45,10 @@ document.addEventListener("DOMContentLoaded", function () {
       window.history.back();
     } else if (currentActive === 2) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "cara-pengisian.html";
+      window.location.href = "cara-pengisian.php";
     } else if (currentActive === 3) {
       localStorage.setItem("currentActive", currentActive);
-      window.location.href = "pertanyaan.html";
+      window.location.href = "pertanyaan.php";
     }
   });
 
