@@ -6,10 +6,6 @@ include_once("../../../validations/connection.php");
 $data_survey_form = [];
 try {
     // Lakukan kueri SQL untuk mengambil data dari tabel survey_form dan nama lengkap dari tabel users
-    // $query = "SELECT sf.*, u.username AS nama_lengkap
-    //           FROM survey_form sf
-    //           LEFT JOIN users u ON sf.id_user = u.id_user";
-
     $query = "SELECT sf.*, sr.Kepuasan, u.username AS nama_lengkap
               FROM survey_form sf
               LEFT JOIN users u ON sf.id_user = u.id_user
@@ -46,6 +42,7 @@ $query = "SELECT COUNT(*) as total FROM questions";
 $result = mysqli_query($connect, $query);
 $row = mysqli_fetch_assoc($result);
 $total_questions = $row['total'];
+
 ?>
 
 <!DOCTYPE html>
@@ -110,7 +107,9 @@ $total_questions = $row['total'];
                         <tbody>
                             <?php
                              // Output data
-                            foreach ($data_survey_form as $key => $survey_form) {
+                             $total_data = count($data_survey_form);
+                             for ($key = 0; $key < $total_data - 1; $key++) {
+                                 $survey_form = $data_survey_form[$key];
                                 echo '<tr>';
                                 echo '<td>' . ($key + 1) . '</td>';
                                 echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['tanggal']) ? $survey_form['tanggal'] : '') . '</td>';
@@ -131,8 +130,7 @@ $total_questions = $row['total'];
 
 
                                 echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['Kepuasan']) ? $survey_form['Kepuasan'] : '') . '</td>';
-
-
+                                
                                 echo '<td class="col-md-1 col-xs-1 aksi"><a href="./hasil-pengujian.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-uji">Detail</a></td>';
 
                                 echo '</tr>';

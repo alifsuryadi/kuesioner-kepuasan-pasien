@@ -153,6 +153,10 @@ try {
 
     <script src="../../assets/scripts/main.js"></script>
     <script src="../../assets/scripts/table.js"></script>
+    <script>
+        let currentActive = 1;
+        localStorage.setItem("currentActive", currentActive);
+    </script>
 </body>
 
 </html>

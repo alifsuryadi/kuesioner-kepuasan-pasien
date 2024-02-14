@@ -5,7 +5,8 @@ include "../../../validations/connection.php";
 
 try {
     // Query untuk mengambil data responden terdaftar
-    $sql = "SELECT u.*, s.* FROM users u LEFT JOIN survey_form f ON u.id_user = f.id_user LEFT JOIN survey_results s ON f.id_form = s.id_form WHERE u.email IS NOT NULL AND u.email <> '' AND u.role <> 'admin'";
+    $sql = "SELECT u.*, s.* FROM users u LEFT JOIN survey_form f ON u.id_user = f.id_user 
+            LEFT JOIN survey_results s ON f.id_form = s.id_form WHERE u.email IS NOT NULL AND u.email <> '' AND u.role <> 'admin'";
 
     $result = mysqli_query($connect, $sql);
 

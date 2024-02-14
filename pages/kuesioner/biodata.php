@@ -197,6 +197,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="../../assets/scripts/form.js"></script> -->
     <script src="../../assets/scripts/kuesioner.js"></script>
     <script>
+
     document
         .getElementById("next")
         .addEventListener("click", function(event) {

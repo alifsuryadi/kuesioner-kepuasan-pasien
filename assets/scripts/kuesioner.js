@@ -15,19 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
       currentActive = circles.length;
     }
 
-    update();
+    localStorage.setItem("currentActive", currentActive);
 
-    // // Halaman
-    // if (currentActive === 2) {
-    //   localStorage.setItem("currentActive", currentActive);
-    //   window.location.href = "";
-    // } else if (currentActive === 3) {
-    //   localStorage.setItem("currentActive", currentActive);
-    //   window.location.href = "pertanyaan.php";
-    //   // } else if (currentActive === 4) {
-    //   //   localStorage.setItem("currentActive", currentActive);
-    //   //   window.location.href = "";
-    // }
+    update();
   });
 
   prev.addEventListener("click", () => {
@@ -37,19 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
       currentActive = 1;
     }
 
-    update();
+    localStorage.setItem("currentActive", currentActive);
 
-    // // Kembali ke halaman sebelumnya
-    // if (currentActive === 1) {
-    //   localStorage.setItem("currentActive", currentActive);
-    //   window.history.back();
-    // } else if (currentActive === 2) {
-    //   localStorage.setItem("currentActive", currentActive);
-    //   window.location.href = "cara-pengisian.php";
-    // } else if (currentActive === 3) {
-    //   localStorage.setItem("currentActive", currentActive);
-    //   window.location.href = "pertanyaan.php";
-    // }
+    update();
   });
 
   function update() {
@@ -65,14 +45,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     progress.style.width =
       ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
-
-    if (currentActive === 1) {
-      prev.disabled = true;
-    } else if (currentActive === circles.length) {
-      next.disabled = true;
-    } else {
-      prev.disabled = false;
-      next.disabled = false;
-    }
   }
 });

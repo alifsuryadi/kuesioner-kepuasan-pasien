@@ -4,7 +4,8 @@ include_once("../../../validations/connection.php");
 
 try {
     // Query untuk mengambil data responden dari tabel users kecuali yang berperan sebagai admin
-    $query = "SELECT u.*, s.* FROM users u LEFT JOIN survey_form f ON u.id_user = f.id_user LEFT JOIN survey_results s ON f.id_form = s.id_form WHERE u.role != 'admin'";
+    $query = "SELECT u.*, s.* FROM users u LEFT JOIN survey_form f ON u.id_user = f.id_user 
+              LEFT JOIN survey_results s ON f.id_form = s.id_form WHERE u.role != 'admin'";
 
 
     $result = mysqli_query($connect, $query);

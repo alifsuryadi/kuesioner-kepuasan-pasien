@@ -223,6 +223,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="../../assets/scripts/kuesioner.js"></script>
     <script src="../../assets/scripts/slider-answer.js"></script>
     <script>
+    // let currentActive = 2;
+    // localStorage.setItem("currentActive", currentActive);
     document
         .getElementById("next")
         .addEventListener("click", function(event) {

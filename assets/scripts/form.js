@@ -24,18 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     update();
-
-    // Halaman
-    if (currentActive === 2) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "../../validations/proses_biodata.php";
-    } else if (currentActive === 3) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "pertanyaan.php";
-    } else if (currentActive === 4) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "rangkuman.php";
-    }
   });
 
   prev.addEventListener("click", () => {
@@ -46,18 +34,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     update();
-
-    // Kembali ke halaman sebelumnya
-    if (currentActive === 1) {
-      localStorage.setItem("currentActive", currentActive);
-      window.history.back();
-    } else if (currentActive === 2) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "cara-pengisian.php";
-    } else if (currentActive === 3) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "pertanyaan.php";
-    }
   });
 
   function validateForm() {
@@ -89,13 +65,13 @@ document.addEventListener("DOMContentLoaded", function () {
     progress.style.width =
       ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
 
-    if (currentActive === 1) {
-      prev.disabled = true;
-    } else if (currentActive === circles.length) {
-      next.disabled = true;
-    } else {
-      prev.disabled = false;
-      next.disabled = false;
-    }
+    // if (currentActive === 1) {
+    //   prev.disabled = true;
+    // } else if (currentActive === circles.length) {
+    //   next.disabled = true;
+    // } else {
+    //   prev.disabled = false;
+    //   next.disabled = false;
+    // }
   }
 });
