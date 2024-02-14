@@ -10584,6 +10584,10 @@ main {
   margin: 20px 0;
   color: #0c6f84;
 }
+.kuesioner .card #formPrev,
+.kuesioner .card #formNext {
+  display: inline;
+}
 .kuesioner .card .question-container {
   /* Tampilan default input range */
   /* Tampilan input range yang sudah diisi */

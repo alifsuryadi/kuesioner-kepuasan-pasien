@@ -25,7 +25,7 @@ if (!$resultUserId) {
 $rowUserId = mysqli_fetch_assoc($resultUserId);
 $id_user_last = $rowUserId['id_user'] + 1;
 
-
+$nomor = 1;
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +69,7 @@ $id_user_last = $rowUserId['id_user'] + 1;
 
                     <div class="card">
                         <div class="card-body">
-                            <form id="myForm" action="../../validations/proses_survey.php" method="post">
+                            <form id="formNext" action="../../validations/proses_survey.php" method="post">
                                 <div class="content">
                                     <h3 class="card-title">Rangkuman Jawaban Anda</h3>
                                     <p class="card-subtitle">
@@ -89,8 +89,7 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                     <input type="hidden" name="address"
                                         value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
 
-
-                                    <input type="hidden" name="id_user" value="<?php echo $_POST['id_user']; ?>">
+                                    <input type="hidden" name="id_user" value="<?php echo $id_user_last; ?>">
 
                                     <!-- Loop through categories -->
                                     <?php while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
@@ -115,7 +114,7 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                     <div class="question-container">
                                         <!-- Display question number and text -->
                                         <div class="question">
-                                            <div class="question-no"><?php echo $rowQuestion['id_question']; ?>.</div>
+                                            <div class="question-no"><?php echo $nomor; ?>.</div>
                                             <div class="question-text"><?php echo $rowQuestion['question']; ?></div>
                                         </div>
                                         <!-- Display answer -->
@@ -126,6 +125,7 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                         <input type="hidden" name="Q<?php echo $rowQuestion['id_question']; ?>"
                                             value="<?php echo $_POST['Q' . $rowQuestion['id_question']]; ?>">
                                     </div>
+                                    <?php $nomor++; ?>
                                     <?php endwhile; ?>
                                     <?php endwhile; ?>
 
@@ -133,11 +133,56 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                 </div>
 
                                 <div class="button">
-                                    <a href="pertanyaan.php" class="btn btn-secondary" id="prev">Kembali</a>
+                                    <a href="" class="btn btn-secondary" id="prev">Kembali</a>
                                     <button type="submit" class="btn btn-primary" id="next">
                                         Selesai
                                     </button>
                                 </div>
+                            </form>
+                            <form action="./pertanyaan.php" method="post" id="formPrev">
+                                <input type="hidden" name="email"
+                                    value="<?php echo isset($_POST['email']) ? $_POST['email'] : null; ?>">
+                                <input type="hidden" name="username"
+                                    value="<?php echo isset($_POST['username']) ? $_POST['username'] : null; ?>">
+                                <input type="hidden" name="gender"
+                                    value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : null; ?>">
+                                <input type="hidden" name="job"
+                                    value="<?php echo isset($_POST['job']) ? $_POST['job'] : null; ?>">
+                                <input type="hidden" name="age"
+                                    value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
+                                <input type="hidden" name="address"
+                                    value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
+
+
+                                <!-- Loop through categories -->
+                                <?php 
+                                // Set pointer result set kembali ke awal
+                                mysqli_data_seek($resultCategory, 0);
+                                
+                                while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
+                                <!-- Query for fetching questions based on category -->
+                                <?php
+                                    $categoryId = $rowCategory['id_category'];
+                                    $queryQuestion = "SELECT * FROM questions WHERE id_category = $categoryId";
+                                    $resultQuestion = mysqli_query($connect, $queryQuestion);
+
+                                    // Mengecek apakah query berhasil dieksekusi
+                                    if (!$resultQuestion) {
+                                        die("Query Error: " . mysqli_error($connect));
+                                    }
+                                    ?>
+
+                                <!-- Iterating through questions to display them -->
+                                <?php while ($rowQuestion = mysqli_fetch_assoc($resultQuestion)) : ?>
+                                <!-- Input hidden for answer -->
+                                <input type="hidden" name="Q<?php echo $rowQuestion['id_question']; ?>"
+                                    value="<?php echo $_POST['Q' . $rowQuestion['id_question']]; ?>">
+                                <?php endwhile; ?>
+                                <?php endwhile; ?>
+
+
+                                <!-- Submit button for the form -->
+                                <button type="submit" style="display: none;"></button>
                             </form>
                         </div>
                     </div>
@@ -161,7 +206,15 @@ $id_user_last = $rowUserId['id_user'] + 1;
         .addEventListener("click", function(event) {
             event.preventDefault();
 
-            document.querySelector("form").submit();
+            document.querySelector("#formNext").submit();
+        });
+
+    document
+        .getElementById("prev")
+        .addEventListener("click", function(event) {
+            event.preventDefault();
+
+            document.querySelector("#formPrev").submit();
         });
     </script>
 

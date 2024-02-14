@@ -11,17 +11,20 @@ if (!$resultCategory) {
     die("Query Error: " . mysqli_error($connect));
 }
 
-$queryUserId = "SELECT id_user FROM users ORDER BY id_user DESC LIMIT 1";
-$resultUserId = mysqli_query($connect, $queryUserId);
+// Inisialisasi array untuk menyimpan jawaban dari halaman rangkuman
+$answers = array();
 
-// Mengecek apakah query berhasil dieksekusi
-if (!$resultUserId) {
-    die("Query Error: " . mysqli_error($connect));
+// Memeriksa apakah ada data yang dikirimkan dari halaman rangkuman
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Mengambil jawaban untuk setiap pertanyaan dan menyimpannya dalam array
+    foreach ($_POST as $key => $value) {
+        if (substr($key, 0, 1) == "Q") {
+            $answers[$key] = $value;
+        }
+    }
 }
 
-// Mengambil ID pengguna terakhir
-$rowUserId = mysqli_fetch_assoc($resultUserId);
-$id_user_last = $rowUserId['id_user'] + 1;
+$nomor = 1;
 
 ?>
 
@@ -66,8 +69,8 @@ $id_user_last = $rowUserId['id_user'] + 1;
 
                     <div class="card">
                         <div class="card-body">
-                            <form method="POST" id="myForm" action="rangkuman.php"
-                                enctype="application/x-www-form-urlencoded">
+                            <form method="POST" action="rangkuman.php" enctype="application/x-www-form-urlencoded"
+                                id="formNext">
 
                                 <div class="content">
                                     <h3 class="card-title">Silahkan isi pertanyaan berikut</h3>
@@ -88,9 +91,6 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                         value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
                                     <input type="hidden" name="address"
                                         value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
-
-
-                                    <input type="hidden" name="id_user" value="<?php echo $id_user_last; ?>">
 
 
                                     <?php while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
@@ -121,7 +121,7 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                     <?php while ($rowQuestion = mysqli_fetch_assoc($resultQuestion)) : ?>
                                     <div class="question-container">
                                         <div class="question">
-                                            <div class="question-no"><?php echo $rowQuestion['id_question']; ?>.</div>
+                                            <div class="question-no"><?php echo $nomor; ?>.</div>
                                             <div class="question-text"><?php echo $rowQuestion['question']; ?></div>
                                         </div>
                                         <p class="answer">Jawaban anda : <span>50</span></p>
@@ -131,9 +131,11 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                             <span>100</span>
                                         </div>
                                         <input name="Q<?php echo $rowQuestion['id_question']; ?>"
-                                            class="answer-question" type="range" min="0" max="100" step="0" />
+                                            class="answer-question" type="range" min="0" max="100" step="0"
+                                            value="<?php echo isset($answers['Q' . $rowQuestion['id_question']]) ? $answers['Q' . $rowQuestion['id_question']] : 50; ?>" />
                                         <br />
                                     </div>
+                                    <?php $nomor++;?>
                                     <?php endwhile; ?>
                                     <!-- End of question iteration -->
                                     <?php endwhile; ?>
@@ -146,11 +148,54 @@ $id_user_last = $rowUserId['id_user'] + 1;
                                 </div>
 
                                 <div class="button">
-                                    <a href="cara-pengisian.php" class="btn btn-secondary" id="prev">Kembali</a>
+                                    <a href="" class="btn btn-secondary" id="prev">Kembali</a>
                                     <button type="submit" class="btn btn-primary" id="next">
                                         Lanjutkan
                                     </button>
                                 </div>
+                            </form>
+                            <form action="./cara-pengisian.php" method="post" id="formPrev">
+                                <input type="hidden" name="email"
+                                    value="<?php echo isset($_POST['email']) ? $_POST['email'] : null; ?>">
+                                <input type="hidden" name="username"
+                                    value="<?php echo isset($_POST['username']) ? $_POST['username'] : null; ?>">
+                                <input type="hidden" name="gender"
+                                    value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : null; ?>">
+                                <input type="hidden" name="job"
+                                    value="<?php echo isset($_POST['job']) ? $_POST['job'] : null; ?>">
+                                <input type="hidden" name="age"
+                                    value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
+                                <input type="hidden" name="address"
+                                    value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
+
+                                <!-- Loop through categories -->
+                                <?php 
+                                // Set pointer result set kembali ke awal
+                                mysqli_data_seek($resultCategory, 0);
+                                
+                                while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
+                                <!-- Query for fetching questions based on category -->
+                                <?php
+                                    $categoryId = $rowCategory['id_category'];
+                                    $queryQuestion = "SELECT * FROM questions WHERE id_category = $categoryId";
+                                    $resultQuestion = mysqli_query($connect, $queryQuestion);
+
+                                    // Mengecek apakah query berhasil dieksekusi
+                                    if (!$resultQuestion) {
+                                        die("Query Error: " . mysqli_error($connect));
+                                    }
+                                    ?>
+
+                                <!-- Iterating through questions to display them -->
+                                <?php while ($rowQuestion = mysqli_fetch_assoc($resultQuestion)) : ?>
+                                <!-- Input hidden for answer -->
+                                <input type="hidden" name="Q<?php echo $rowQuestion['id_question']; ?>"
+                                    value="<?php echo isset($_POST['Q' . $rowQuestion['id_question']]) ? $_POST['Q' . $rowQuestion['id_question']] : 50; ?>">
+                                <?php endwhile; ?>
+                                <?php endwhile; ?>
+
+                                <!-- Submit button for the form -->
+                                <button type="submit" style="display: none;"></button>
                             </form>
                         </div>
                     </div>
@@ -175,7 +220,15 @@ $id_user_last = $rowUserId['id_user'] + 1;
         .addEventListener("click", function(event) {
             event.preventDefault();
 
-            document.querySelector("form").submit();
+            document.querySelector("#formNext").submit();
+        });
+
+    document
+        .getElementById("prev")
+        .addEventListener("click", function(event) {
+            event.preventDefault();
+
+            document.querySelector("#formPrev").submit();
         });
     </script>
 

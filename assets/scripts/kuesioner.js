@@ -39,17 +39,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     update();
 
-    // Kembali ke halaman sebelumnya
-    if (currentActive === 1) {
-      localStorage.setItem("currentActive", currentActive);
-      window.history.back();
-    } else if (currentActive === 2) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "cara-pengisian.php";
-    } else if (currentActive === 3) {
-      localStorage.setItem("currentActive", currentActive);
-      window.location.href = "pertanyaan.php";
-    }
+    // // Kembali ke halaman sebelumnya
+    // if (currentActive === 1) {
+    //   localStorage.setItem("currentActive", currentActive);
+    //   window.history.back();
+    // } else if (currentActive === 2) {
+    //   localStorage.setItem("currentActive", currentActive);
+    //   window.location.href = "cara-pengisian.php";
+    // } else if (currentActive === 3) {
+    //   localStorage.setItem("currentActive", currentActive);
+    //   window.location.href = "pertanyaan.php";
+    // }
   });
 
   function update() {

@@ -1,3 +1,32 @@
+<?php
+// Include file koneksi ke database
+include "../../validations/connection.php";
+
+// Query untuk mengambil data kategori dari database
+$queryCategory = "SELECT * FROM categories";
+$resultCategory = mysqli_query($connect, $queryCategory);
+
+// Mengecek apakah query berhasil dieksekusi
+if (!$resultCategory) {
+    die("Query Error: " . mysqli_error($connect));
+}
+
+// Inisialisasi array untuk menyimpan jawaban dari halaman rangkuman
+$answers = array();
+
+// Memeriksa apakah ada data yang dikirimkan dari halaman rangkuman
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Mengambil jawaban untuk setiap pertanyaan dan menyimpannya dalam array
+    foreach ($_POST as $key => $value) {
+        if (substr($key, 0, 1) == "Q") {
+            $answers[$key] = $value;
+        }
+    }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -83,28 +112,99 @@
                                 </p>
                             </div>
 
-                            <form action="./pertanyaan.php" method="post">
 
-                                <input type="hidden" name="email"
-                                    value="<?php echo isset($_POST['email']) ? $_POST['email'] : null; ?>">
-                                <input type="hidden" name="username"
-                                    value="<?php echo isset($_POST['username']) ? $_POST['username'] : null; ?>">
-                                <input type="hidden" name="gender"
-                                    value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : null; ?>">
-                                <input type="hidden" name="job"
-                                    value="<?php echo isset($_POST['job']) ? $_POST['job'] : null; ?>">
-                                <input type="hidden" name="age"
-                                    value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
-                                <input type="hidden" name="address"
-                                    value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
+                            <div class="button">
+                                <form action="./biodata.php" method="post" id="formPrev">
+                                    <input type="hidden" name="email"
+                                        value="<?php echo isset($_POST['email']) ? $_POST['email'] : null; ?>">
+                                    <input type="hidden" name="username"
+                                        value="<?php echo isset($_POST['username']) ? $_POST['username'] : null; ?>">
+                                    <input type="hidden" name="gender"
+                                        value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : null; ?>">
+                                    <input type="hidden" name="job"
+                                        value="<?php echo isset($_POST['job']) ? $_POST['job'] : null; ?>">
+                                    <input type="hidden" name="age"
+                                        value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
+                                    <input type="hidden" name="address"
+                                        value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
+
+                                    <!-- Loop through categories -->
+                                    <?php 
+                                    // Set pointer result set kembali ke awal
+                                    mysqli_data_seek($resultCategory, 0);
+                                    
+                                    while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
+                                    <!-- Query for fetching questions based on category -->
+                                    <?php
+                                    $categoryId = $rowCategory['id_category'];
+                                    $queryQuestion = "SELECT * FROM questions WHERE id_category = $categoryId";
+                                    $resultQuestion = mysqli_query($connect, $queryQuestion);
+
+                                    // Mengecek apakah query berhasil dieksekusi
+                                    if (!$resultQuestion) {
+                                        die("Query Error: " . mysqli_error($connect));
+                                    }
+                                    ?>
+
+                                    <!-- Iterating through questions to display them -->
+                                    <?php while ($rowQuestion = mysqli_fetch_assoc($resultQuestion)) : ?>
+                                    <!-- Input hidden for answer -->
+                                    <input type="hidden" name="Q<?php echo $rowQuestion['id_question']; ?>"
+                                        value="<?php echo isset($_POST['Q' . $rowQuestion['id_question']]) ? $_POST['Q' . $rowQuestion['id_question']] : 50; ?>">
+                                    <?php endwhile; ?>
+                                    <?php endwhile; ?>
 
 
-                                <div class="button">
-                                    <a href="biodata.php" class="btn btn-secondary" id="prev">Kembali</a>
+                                    <!-- <button type="submit" class="btn btn-primary" id="next">Lanjutkan</button> -->
+                                    <button type="submit" class="btn btn-secondary" id="prev">Kembali</button>
+                                </form>
+
+
+                                <form action="./pertanyaan.php" method="post" id="formNext">
+                                    <input type="hidden" name="email"
+                                        value="<?php echo isset($_POST['email']) ? $_POST['email'] : null; ?>">
+                                    <input type="hidden" name="username"
+                                        value="<?php echo isset($_POST['username']) ? $_POST['username'] : null; ?>">
+                                    <input type="hidden" name="gender"
+                                        value="<?php echo isset($_POST['gender']) ? $_POST['gender'] : null; ?>">
+                                    <input type="hidden" name="job"
+                                        value="<?php echo isset($_POST['job']) ? $_POST['job'] : null; ?>">
+                                    <input type="hidden" name="age"
+                                        value="<?php echo isset($_POST['age']) ? $_POST['age'] : null; ?>">
+                                    <input type="hidden" name="address"
+                                        value="<?php echo isset($_POST['address']) ? $_POST['address'] : null; ?>">
+
+                                    <!-- Loop through categories -->
+                                    <?php 
+                                    // Set pointer result set kembali ke awal
+                                    mysqli_data_seek($resultCategory, 0);
+                                    
+                                    while ($rowCategory = mysqli_fetch_assoc($resultCategory)) : ?>
+                                    <!-- Query for fetching questions based on category -->
+                                    <?php
+                                    $categoryId = $rowCategory['id_category'];
+                                    $queryQuestion = "SELECT * FROM questions WHERE id_category = $categoryId";
+                                    $resultQuestion = mysqli_query($connect, $queryQuestion);
+
+                                    // Mengecek apakah query berhasil dieksekusi
+                                    if (!$resultQuestion) {
+                                        die("Query Error: " . mysqli_error($connect));
+                                    }
+                                    ?>
+
+                                    <!-- Iterating through questions to display them -->
+                                    <?php while ($rowQuestion = mysqli_fetch_assoc($resultQuestion)) : ?>
+                                    <!-- Input hidden for answer -->
+                                    <input type="hidden" name="Q<?php echo $rowQuestion['id_question']; ?>"
+                                        value="<?php echo isset($_POST['Q' . $rowQuestion['id_question']]) ? $_POST['Q' . $rowQuestion['id_question']] : 50; ?>">
+                                    <?php endwhile; ?>
+                                    <?php endwhile; ?>
+
+                                    <!-- Submit button for the form -->
                                     <button type="submit" class="btn btn-primary" id="next">Lanjutkan</button>
-                                </div>
+                                </form>
+                            </div>
 
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -128,7 +228,15 @@
         .addEventListener("click", function(event) {
             event.preventDefault();
 
-            document.querySelector("form").submit();
+            document.querySelector("#formNext").submit();
+        });
+
+    document
+        .getElementById("prev")
+        .addEventListener("click", function(event) {
+            event.preventDefault();
+
+            document.querySelector("#formPrev").submit();
         });
     </script>
 </body>

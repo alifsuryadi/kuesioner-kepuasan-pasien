@@ -6,7 +6,6 @@ $Responsiveness = 0;
 $Empathy = 0;
 $Tangible = 0;
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Proses Biodata
@@ -52,7 +51,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Mengonversi array jawaban menjadi format yang sesuai untuk dimasukkan ke dalam database
+    $answer_values = implode(', ', $answers);
 
+    // Menyiapkan pernyataan SQL untuk memasukkan data kuesioner ke dalam tabel survey_form
+    // Gunakan fungsi NOW() langsung dalam query SQL
+    $sql_insert_survey = "INSERT INTO `survey_form` (`id_user`, `created_at`, `Q1`, `Q2`, `Q3`, `Q4`, `Q5`, `Q6`, `Q7`, `Q8`, `Q9`, `Q10`, 
+                            `Q11`, `Q12`, `Q13`, `Q14`, `Q15`, `Q16`, `Q17`, `Q18`, `Q19`, `Q20`, 
+                            `Q21`, `Q22`, `Q23`, `Q24`, `Q25`, `Q26`, `Q27`, `Q28`, `Q29`, `Q30`) 
+                            VALUES ('$id_user', NOW(), $answer_values)";
+
+
+    // ----------------------------------------------------------------//
     // Table Survey_results
     $countResponsiveness = 0;
     $countEmpathy = 0;
@@ -72,172 +82,242 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($category_id == 1) {
                     $countResponsiveness++;
                     $Responsiveness += $_POST[$question_key];
-                } elseif ($category_id == 2) {
+                };
+                if ($category_id == 2) {
                     $countEmpathy++;
                     $Empathy += $_POST[$question_key];
-                } elseif ($category_id == 3) {
+                };
+                if ($category_id == 3) {
                     $countTangible++;
                     $Tangible += $_POST[$question_key];
-                }
+                };
             }
         }
     }
 
-    // ----------------------------------------------------------------//
-    // Survey_form
-    // Mengonversi array jawaban menjadi format yang sesuai untuk dimasukkan ke dalam database
-    $answer_values = implode(', ', $answers);
 
-    // Menyiapkan pernyataan SQL untuk memasukkan data kuesioner ke dalam tabel survey_form
-    // Gunakan fungsi NOW() langsung dalam query SQL
-    $sql_insert_survey = "INSERT INTO `survey_form` (`id_user`, `created_at`, `Q1`, `Q2`, `Q3`, `Q4`, `Q5`, `Q6`, `Q7`, `Q8`, `Q9`, `Q10`, 
-                            `Q11`, `Q12`, `Q13`, `Q14`, `Q15`, `Q16`, `Q17`, `Q18`, `Q19`, `Q20`, 
-                            `Q21`, `Q22`, `Q23`, `Q24`, `Q25`, `Q26`, `Q27`, `Q28`, `Q29`, `Q30`) 
-                            VALUES ('$id_user', NOW(), $answer_values)";
-
-
-
-    // Table survey_results
-
-    // Defuzzifikasi
-    // Rata-rata =  Total / Jumlah Data
+    // Defuzzifikasi----------------------------------------------------
+    // Rata-rata =  Total Q1-Q5 / Jumlah Data (5)
     $RataResponsiveness = $Responsiveness / $countResponsiveness;
     $RataEmpathy = $Empathy / $countEmpathy;
     $RataTangible = $Tangible / $countTangible;
 
 
-    // Fuzzyfikasi
-    $hasilResponsiveness = "";
-    if ($RataResponsiveness >= 70){
-          $hasilResponsiveness = "Baik";
-    }else if ($RataResponsiveness >= 40){
-         $hasilResponsiveness = "Cukup Baik";
-    }else{
-         $hasilResponsiveness = "Tidak Baik";
+    //Fuzzyfikasi---------------------------------------------------
+    //Responsiveness
+    //Responsiveness tidak baik
+	if($RataResponsiveness <= 33){
+        $res_tidakBaik = 1;
+      }
+    else if($RataResponsiveness > 33 && $RataResponsiveness < 50){
+        $res_tidakBaik= (50-$RataResponsiveness)/(50-33);
     }
-
-    $hasilEmpathy = "";
-    if ($RataEmpathy >= 70){
-          $hasilEmpathy = "Baik";
-    }else if ($RataEmpathy >= 70){
-         $hasilEmpathy = "Cukup Baik";
-    }else{
-         $hasilEmpathy = "Tidak Baik";
+    else if($RataResponsiveness >= 50){
+        $res_tidakBaik = 0;
     }
-
-    $hasilTangible = "";
-    if ($RataTangible >= 70){
-          $hasilTangible = "Baik";
-    }else if ($RataTangible >= 40){
-         $hasilTangible = "Cukup Baik";
-    }else{
-         $hasilTangible = "Tidak Baik";
-    }
-
-
-    // Inferense
-    $kepuasan = "";
-    if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Tidak Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Cukup Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Tidak Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Cukup Baik" && $hasilTangible == "Tidak Baik" ){
-        $kepuasan = "Tidak Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Cukup Baik" ){
-        $kepuasan = "Puas";
-    }
-    else if ($hasilResponsiveness == "Baik" && $hasilEmpathy == "Baik" && $hasilTangible == "Baik" ){
-        $kepuasan = "Puas";
-    }
-    else{
-        $kepuasan = "Ada inputan yang salah";
-    }
-
     
-    //Alfa prediket--------------------------------------------------
-    $alfa = min($RataResponsiveness, $RataEmpathy, $RataTangible);
-    $alfaSederhana = $alfa / 100;
+    //Responsiveness Cukup Baik
+    if($RataResponsiveness <= 33){
+    $res_cukupBaik = 0;
+    }
+    else if($RataResponsiveness > 50 && $RataResponsiveness < 67){
+    $res_cukupBaik= (67-$RataResponsiveness)/(67-50);
+    }
+    else if($RataResponsiveness = 50){
+    $res_cukupBaik = 1;
+    }
+    else if($RataResponsiveness > 33 && $RataResponsiveness < 50){
+    $res_cukupBaik= ($RataResponsiveness-33)/(50-33);
+    }
+    else if($RataResponsiveness >= 67){
+    $res_cukupBaik = 0;
+    }
+    
+    // Responsiveness baik
+    if($RataResponsiveness <= 50){
+    $res_baik = 0;
+    }
+    else if($RataResponsiveness > 50 && $RataResponsiveness < 67){
+    $res_baik= ($RataResponsiveness-50)/(67-50);
+    }
+    else if($RataResponsiveness >= 67 && $RataResponsiveness <= 100){
+    $res_baik = 1;
+    }
 
-    $nilai_z = 0;
-    if ($kepuasan == "Puas"){
-        $nilai_z = 33+($alfaSederhana*(67-33));  //puas
+    // Empathy
+    //  Empathy tidak baik
+    if($RataEmpathy <= 33){
+        $emp_tidakBaik = 1;
     }
-    else if ($kepuasan == "Tidak Puas"){
-        $nilai_z = 67-($alfaSederhana*(67-33));  //tidak puas
+    else if($RataEmpathy > 33 && $RataEmpathy < 50){
+        $emp_tidakBaik= (50-$RataEmpathy)/(50-33);
     }
-    else{
-        $nilai_z = 0;
+    else if($RataEmpathy>= 50){
+        $emp_tidakBaik = 0;
     }
 
+    //Empathy Cukup Baik
+    if($RataEmpathy <= 33){
+        $emp_cukupBaik = 0;
+    }
+    else if($RataEmpathy > 50 && $RataEmpathy < 67){
+        $emp_cukupBaik= (67-$RataEmpathy)/(67-50);
+    }
+    else if($RataEmpathy = 50){
+        $emp_cukupBaik = 1;
+    }
+    else if($RataEmpathy > 33 && $RataEmpathy < 50){
+        $emp_cukupBaik= ($RataEmpathy-33)/(50-33);
+    }
+    else if($RataEmpathy >= 67){
+        $emp_cukupBaik = 0;
+    }
+    // Empathy baik
+    if($RataEmpathy <= 50){
+        $emp_baik = 0;
+    }
+    else if($RataEmpathy > 50 && $RataEmpathy < 67){
+        $emp_baik= ($RataEmpathy-50)/(67-50);
+    }
+    else if($RataEmpathy >= 67 && $RataEmpathy <= 100){
+        $emp_baik = 1;
+    }
+
+
+    //  Tangible
+    // Tangible tidak baik
+    if($RataTangible <= 33){
+        $tan_tidakBaik = 1;
+    }
+    else if($RataTangible  > 33 && $RataTangible  < 50){
+        $tan_tidakBaik= (50-$RataTangible )/(50-33);
+    }
+    else if($RataTangible >= 50){
+        $tan_tidakBaik = 0;
+    }
+
+    //  Tangible Cukup Baik
+    if($RataTangible  <= 33){
+        $tan_cukupBaik = 0;
+    }
+    else if($RataTangible  > 50 && $RataTangible  < 67){
+        $tan_cukupBaik= (67-$RataTangible )/(67-50);
+    }
+    else if($RataTangible  = 50){
+        $tan_cukupBaik = 1;
+    }
+    else if($RataTangible  > 33 && $RataTangible  < 50){
+        $tan_cukupBaik= ($RataTangible -33)/(50-33);
+    }
+    else if($RataTangible  >= 67){
+        $tan_cukupBaik = 0;
+    }
+    
+    // Tangible baik
+    if($RataTangible  <= 50){
+        $tan_baik = 0;
+    }
+    else if($RataTangible  > 50 && $RataTangible  < 67){
+        $tan_baik= ($RataTangible -50)/(67-50);
+    }
+    else if($RataTangible  >= 67 && $RataTangible  <= 100){
+        $tan_baik = 1;
+    }
+
+
+    // Inferense-------------------------------------------------------------------
+    // Menghitung nilai a-predikat
+    $a1 = min($res_tidakBaik, $emp_tidakBaik, $tan_tidakBaik); // Tidak Puas
+    $z1= 67 - ($a1 * (67 - 33));
+
+    $a2 = min($res_tidakBaik, $emp_tidakBaik, $tan_cukupBaik); // Tidak Puas
+    $z2 = 67 - ($a2 * (67 - 33));
+
+    $a3 = min($res_tidakBaik, $emp_tidakBaik, $tan_baik); // Tidak Puas
+    $z3 = 67 - ($a3 * (67 - 33));
+
+    $a4 = min($res_tidakBaik, $emp_cukupBaik, $tan_tidakBaik); // Tidak Puas
+    $z4= 67 - ($a4 * (67 - 33));
+  
+    $a5 = min($res_tidakBaik, $emp_cukupBaik, $tan_cukupBaik); // Tidak Puas
+    $z5= 67 - ($a5 * (67 - 33));
+ 
+    $a6 = min($res_tidakBaik, $emp_cukupBaik, $tan_baik); // Puas
+    $z6 = 33 + ($a6 * (67 - 33));
+   
+    $a7 = min($res_tidakBaik, $emp_baik, $tan_tidakBaik); // Tidak Puas
+    $z7 = 67 - ($a7 * (67 - 33));
+
+    $a8 = min($res_tidakBaik, $emp_baik, $tan_cukupBaik); // Puas
+    $z8 = 33 + ($a8 * (67 - 33));
+    
+    $a9 = min($res_tidakBaik, $emp_baik, $tan_baik); // Puas
+    $z9 = 33 + ($a9 * (67 - 33));
+    
+    $a10 = min($res_cukupBaik, $emp_tidakBaik, $tan_tidakBaik); // Tidak Puas
+    $z10 = 67 - ($a10 * (67 - 33));
+
+    $a11 = min($res_cukupBaik, $emp_tidakBaik, $tan_cukupBaik); // Tidak Puas
+    $z11 = 67 - ($a11 * (67 - 33));
+
+    $a12 = min($res_cukupBaik, $emp_tidakBaik, $tan_baik); // Tidak Puas
+    $z12 = 67 - ($a12 * (67 - 33));
+
+    $a13 = min($res_cukupBaik, $emp_cukupBaik, $tan_tidakBaik); // Puas
+    $z13 = 33 + ($a13 * (67 - 33));
+
+    $a14 = min($res_cukupBaik, $emp_cukupBaik, $tan_cukupBaik); // Puas
+    $z14 = 33 + ($a14 * (67 - 33));
+
+    $a15 = min($res_cukupBaik, $emp_cukupBaik, $tan_baik); // Puas
+    $z15 = 33 + ($a15 * (67 - 33));
+
+    $a16 = min($res_cukupBaik, $emp_baik, $tan_tidakBaik); // Puas
+    $z16 = 33 + ($a16 * (67 - 33));
+
+    $a17 = min($res_cukupBaik, $emp_baik, $tan_cukupBaik); // Puas
+    $z17 = 33 + ($a17 * (67 - 33));
+
+    $a18 = min($res_cukupBaik, $emp_baik, $tan_baik); // Puas
+    $z18 = 33 + ($a18 * (67 - 33));
+
+    $a19 = min($res_baik, $emp_tidakBaik, $tan_tidakBaik); // Tidak Puas
+    $z19 = 67 - ($a19 * (67 - 33));
+
+    $a20 = min($res_baik, $emp_tidakBaik, $tan_cukupBaik); // Puas
+    $z20 = 33 + ($a20 * (67 - 33));
+
+    $a21 = min($res_baik, $emp_tidakBaik, $tan_baik); // Puas
+    $z21 = 33 + ($a21 * (67 - 33));
+
+    $a22 = min($res_baik, $emp_cukupBaik, $tan_tidakBaik); // Puas
+    $z22 = 33 + ($a22 * (67 - 33));
+
+    $a23 = min($res_baik, $emp_cukupBaik, $tan_cukupBaik); // Puas
+    $z23 = 33 + ($a23 * (67 - 33));
+
+    $a24 = min($res_baik, $emp_cukupBaik, $tan_baik); // Puas
+    $z24 = 33 + ($a24 * (67 - 33));
+
+    $a25 = min($res_baik, $emp_baik, $tan_tidakBaik); // Puas
+    $z25 = 33 + ($a25 * (67 - 33));
+
+    $a26 = min($res_baik, $emp_baik, $tan_cukupBaik); // Puas
+    $z26 = 33 + ($a26 * (67 - 33));
+
+    $a27 = min($res_baik, $emp_baik, $tan_baik); // Puas
+    $z27 = 33 + ($a27 * (67 - 33));
+
+    $nilai_z = (($a1 * $z1) + ($a2 * $z2) + ($a3 * $z3) + ($a4 * $z4) + ($a5 * $z5) + ($a6 * $z6) + ($a7 * $z7) + ($a8 * $z8) + ($a9 * $z9) + ($a10 * $z10) + ($a11 * $z11) + ($a12 * $z12) + ($a13 * $z13) + ($a14 * $z14) + ($a15 * $z15) + ($a16 * $z16) + ($a17 * $z17) + ($a18 * $z18) + ($a19 * $z19) + ($a20 * $z20) + ($a21 * $z21) + ($a22 * $z22) + ($a23 * $z23) + ($a24 * $z24) + ($a25 * $z25) + ($a26 * $z26) + ($a27 * $z27)) / ($a1 + $a2 + $a3 + $a4 + $a5 + $a6 + $a7 + $a8 + $a9 + $a10 + $a11 + $a12 + $a13 + $a14 + $a15 + $a16 + $a17 + $a18 + $a19 + $a20 + $a21 + $a22 + $a23 + $a24 + $a25 + $a26 + $a27);
+    $hasil_z = number_format($nilai_z, 2);
+
+
+    if ($hasil_z >= 42.5) {
+        $kepuasan = "Puas";
+    } else {
+        $kepuasan = "Tidak Puas";
+    }
+    
 
     // Menyiapkan pernyataan SQL untuk mendapatkan id_form terakhir
     $sql_get_last_id = "SELECT MAX(id_form) AS last_id FROM survey_form";
@@ -248,7 +328,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Menyiapkan pernyataan SQL untuk memasukkan data hasil survey ke dalam tabel survey_results
     $sql_insert_result = "INSERT INTO `survey_results` (`id_form`, `created_at`, `responsiveness`, `empathy`, `tangible`, `nilai_z`, `kepuasan`) 
-                            VALUES ('$next_id', NOW(), '$RataResponsiveness', '$RataEmpathy', '$RataTangible', '$nilai_z', '$kepuasan')";
+                            VALUES ('$next_id', NOW(), '$RataResponsiveness', '$RataEmpathy', '$RataTangible', '$hasil_z', '$kepuasan')";
          
     // Memasukkan data kuesioner ke dalam tabel survey_form
     if ($connect->query($sql_insert_user) === TRUE && $connect->query($sql_insert_survey) === TRUE && $connect->query($sql_insert_result) === TRUE ) {
