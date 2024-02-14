@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2024 at 04:58 PM
+-- Generation Time: Feb 14, 2024 at 11:16 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -37,9 +37,9 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id_category`, `category`) VALUES
-(1, 'Keandalan (Reliability)'),
-(2, 'Daya Tanggap (Empathy)'),
-(3, 'Jaminan (Assurance)');
+(1, 'Ketanggapan (Responsiveness)'),
+(2, 'Empati (Empathy)'),
+(3, 'Tampilan Fisik (Tangible)');
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ INSERT INTO `questions` (`id_question`, `question`, `id_category`, `deleted_at`,
 (12, 'Apakah petugas kesehatan memberikan jaminan bahwa informasi pasien akan dirahasiakan?', 3, NULL, '2024-02-13 13:38:37', NULL),
 (13, 'Apakah petugas kesehatan menunjukkan keahlian dan pengetahuan yang memadai dalam memberikan layanan kesehatan?', 3, NULL, '2024-02-13 13:38:47', NULL),
 (14, 'Apakah petugas kesehatan memberikan penjelasan tentang risiko dan manfaat dari prosedur atau pengobatan kepada pasien?', 3, NULL, '2024-02-13 13:38:58', NULL),
-(15, 'Apakah petugas kesehatan memberikan jaminan bahwa prosedur atau pengobatan yang diberikan telah sesuai dengan standar keamanan dan kualitas yang ditetapkan?', 3, NULL, '2024-02-13 13:39:07', NULL);
+(15, 'Apakah petugas kesehatan memberikan jaminan bahwa prosedur atau pengobatan yang diberikan telah sesuai dengan standar keamanan dan kualitas yang ditetapkan?', 3, NULL, '2024-02-13 13:39:07', '2024-02-13 17:03:10');
 
 -- --------------------------------------------------------
 
@@ -124,10 +124,11 @@ CREATE TABLE `survey_form` (
 --
 
 INSERT INTO `survey_form` (`id_form`, `id_user`, `created_at`, `Q1`, `Q2`, `Q3`, `Q4`, `Q5`, `Q6`, `Q7`, `Q8`, `Q9`, `Q10`, `Q11`, `Q12`, `Q13`, `Q14`, `Q15`, `Q16`, `Q17`, `Q18`, `Q19`, `Q20`, `Q21`, `Q22`, `Q23`, `Q24`, `Q25`, `Q26`, `Q27`, `Q28`, `Q29`, `Q30`) VALUES
-(1, 2, '2024-02-13 15:13:12', 97, 89, 92, 92, 95, 100, 98, 93, 95, 98, 95, 97, 96, 99, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 3, '2024-02-13 15:18:19', 47, 21, 12, 15, 16, 63, 67, 37, 58, 42, 50, 43, 43, 41, 39, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 4, '2024-02-13 15:25:57', 56, 56, 56, 45, 40, 61, 62, 52, 56, 60, 64, 60, 61, 61, 40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 5, '2024-02-13 15:50:54', 73, 64, 73, 67, 68, 62, 50, 62, 56, 57, 57, 61, 56, 57, 58, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 2, '2024-02-14 10:10:00', 78, 72, 72, 70, 66, 72, 78, 84, 85, 98, 100, 91, 90, 89, 88, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 3, '2024-02-14 10:11:36', 68, 61, 89, 84, 82, 92, 70, 76, 74, 76, 77, 78, 78, 83, 87, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 4, '2024-02-14 10:12:31', 38, 30, 32, 25, 31, 56, 59, 57, 58, 59, 69, 27, 30, 34, 35, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 5, '2024-02-14 10:13:42', 9, 9, 11, 12, 9, 14, 15, 9, 5, 10, 5, 14, 20, 14, 25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 6, '2024-02-14 10:14:56', 73, 67, 61, 71, 62, 32, 32, 36, 34, 67, 45, 64, 64, 69, 76, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -139,9 +140,9 @@ CREATE TABLE `survey_results` (
   `id_result` int(11) NOT NULL,
   `id_form` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `reliability` float NOT NULL,
+  `responsiveness` float NOT NULL,
   `empathy` float NOT NULL,
-  `assurance` float NOT NULL,
+  `tangible` float NOT NULL,
   `nilai_z` float NOT NULL,
   `kepuasan` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -150,11 +151,12 @@ CREATE TABLE `survey_results` (
 -- Dumping data for table `survey_results`
 --
 
-INSERT INTO `survey_results` (`id_result`, `id_form`, `created_at`, `reliability`, `empathy`, `assurance`, `nilai_z`, `kepuasan`) VALUES
-(1, 1, '2024-02-13 15:13:12', 93, 96.8, 97.4, 64.62, 'Puas'),
-(2, 2, '2024-02-13 15:18:19', 22.2, 53.4, 43.2, 59.452, 'Tidak Puas'),
-(3, 3, '2024-02-13 15:25:57', 50.6, 58.2, 57.2, 50.204, 'Puas'),
-(4, 4, '2024-02-13 15:50:54', 69, 57.4, 57.8, 52.516, 'Puas');
+INSERT INTO `survey_results` (`id_result`, `id_form`, `created_at`, `responsiveness`, `empathy`, `tangible`, `nilai_z`, `kepuasan`) VALUES
+(1, 1, '2024-02-14 10:10:00', 71.6, 83.4, 91.6, 67, 'Puas'),
+(2, 2, '2024-02-14 10:11:36', 76.8, 77.6, 80.6, 67, 'Puas'),
+(3, 3, '2024-02-14 10:12:31', 31.2, 57.8, 39, 49.93, 'Puas'),
+(4, 4, '2024-02-14 10:13:42', 10, 10.6, 15.6, 33, 'Tidak Puas'),
+(5, 5, '2024-02-14 10:14:56', 66.8, 40.2, 63.6, 47.46, 'Puas');
 
 -- --------------------------------------------------------
 
@@ -180,10 +182,11 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id_user`, `username`, `email`, `password`, `role`, `gender`, `job`, `age`, `address`) VALUES
 (1, 'Lara Edyan', 'lara@gmail.com', 'lara1234', 'admin', NULL, NULL, NULL, NULL),
-(2, 'Alif Suryadi', 'alifsuryadi@gmail.com', '', 'user', 'Laki-laki', 'Mahasiswa', 21, 'Lubuk Begalung, Kota Padang'),
-(3, 'Tasya', 'tasya@gmail.com', '', 'user', 'Perempuan', 'Mahasiswa', 20, 'Jln. Gandoriah, Kota Pariaman'),
-(4, 'Tony', 'tonialtidy@ngangur.com', '', 'user', '', '', 0, ''),
-(5, 'Akmal', 'akmalhidayati@gmail.com', '', 'user', 'Laki-laki', 'Karyawan', 24, 'Kota Padang');
+(2, 'Alif Suryadi', 'alifsuryadi@gmail.com', '', 'user', 'Laki-laki', 'Mahasiswa', 22, 'Lubuk Begalung, Kota Padang'),
+(3, 'Tasya', 'tasya@gmail.com', '', 'user', 'Perempuan', 'Mahasiswa', 21, 'Jln. Gandoriah, Kota Pariaman'),
+(4, 'Tony Altidt', 'tonialtidy@ngangur.com', '', 'user', 'Laki-laki', 'Mahasiswa', 22, 'Padang'),
+(5, 'Akmal Alhidayat', 'akmalhidayati@gmail.com', '', 'user', 'Laki-laki', 'Mahasiswa', 21, 'Pasisir Selatan'),
+(6, 'Raja Iskandar', '', '', 'user', '', '', 0, '');
 
 --
 -- Indexes for dumped tables
@@ -239,19 +242,19 @@ ALTER TABLE `questions`
 -- AUTO_INCREMENT for table `survey_form`
 --
 ALTER TABLE `survey_form`
-  MODIFY `id_form` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_form` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `survey_results`
 --
 ALTER TABLE `survey_results`
-  MODIFY `id_result` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_result` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
