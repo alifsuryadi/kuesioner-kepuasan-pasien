@@ -30,7 +30,7 @@ session_start();
 <body>
     <!-- Navbar -->
     <header class="navbar-container sticky-top" data-aos="fade-down">
-        <nav class="navbar navbar-expand-md bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggler">
@@ -67,7 +67,7 @@ session_start();
                             <a class="nav-link" href="./pages/admin/kelola-pertanyaan.php">Pertanyaan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./pages/admin/pengujian.php">Pengujian</a>
+                            <a class="nav-link" href="./pages/admin/pengujian.php">Kepuasan Pelanggan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./tentang-kami.php">Tentang Kami</a>

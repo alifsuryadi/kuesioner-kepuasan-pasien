@@ -50,9 +50,11 @@
       }
     }
 
-    .btn-uji {
-      margin: 5px;
-      background: $color-background;
+    .btn-proses,
+    .btn-delete,
+    .btn-detail {
+      margin: 2px;
+      font-size: 15px;
       color: $color-default;
       border: none;
       border-radius: 10px;
@@ -61,6 +63,18 @@
       &:hover {
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
       }
+    }
+
+    .btn-detail {
+      background: $color-background;
+    }
+
+    .btn-delete {
+      background: $color-secondary;
+    }
+
+    .btn-proses {
+      background: $color-hover;
     }
 
     .aksi {

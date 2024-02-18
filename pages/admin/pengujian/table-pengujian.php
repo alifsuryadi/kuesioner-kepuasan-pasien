@@ -72,7 +72,7 @@ $total_questions = $row['total'];
     <main>
         <section id="print" class="print">
             <div class="content" data-aos="fade-up">
-                <h2 class="title">Pengujian Puas / Tidak Puas Pasien di RSUD Arosuka</h2>
+                <h2 class="title">Periksa Kepuasan Pasien di RSUD Arosuka</h2>
 
                 <div class="table-responsive">
                     <div class="form-group pull-right d-flex justify-content-end">
@@ -83,11 +83,11 @@ $total_questions = $row['total'];
                         <thead>
                             <tr>
                                 <th rowspan="2">#</th>
-                                <th rowspan="2" class="col-md-1 col-xs-1">Tanggal</th>
-                                <th rowspan="2" class="col-md-1 col-xs-1">Nama Lengkap</th>
-                                <th colspan="<?php echo $total_questions; ?>" class="col-md-8 col-xs-8">Pertanyaan</th>
-                                <th rowspan="2" class="col-md-1 col-xs-1">Kepuasan</th>
-                                <th rowspan="2" class="col-md-1 col-xs-1">Aksi</th>
+                                <th rowspan="2">Tanggal</th>
+                                <th rowspan="2">Nama Lengkap</th>
+                                <th colspan="<?php echo $total_questions; ?>" class="col-md-9 col-xs-9">Pertanyaan</th>
+                                <th rowspan="2">Kepuasan</th>
+                                <th rowspan="2" class="col-md-3 col-xs-3">Aksi</th>
                             </tr>
                             <tr>
                                 <?php
@@ -108,12 +108,15 @@ $total_questions = $row['total'];
                             <?php
                              // Output data
                              $total_data = count($data_survey_form);
-                             for ($key = 0; $key < $total_data - 1; $key++) {
-                                 $survey_form = $data_survey_form[$key];
+                             
+                             // Hapus data double di akhir
+                             // for ($key = 0; $key < $total_data - 1; $key++) {
+                             for ($key = 0; $key < $total_data; $key++) {
+                             $survey_form = $data_survey_form[$key];
                                 echo '<tr>';
                                 echo '<td>' . ($key + 1) . '</td>';
-                                echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['tanggal']) ? $survey_form['tanggal'] : '') . '</td>';
-                                echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['nama_lengkap']) ? $survey_form['nama_lengkap'] : '') . '</td>';
+                                echo '<td>' . (isset($survey_form['tanggal']) ? $survey_form['tanggal'] : '') . '</td>';
+                                echo '<td>' . (isset($survey_form['nama_lengkap']) ? $survey_form['nama_lengkap'] : '') . '</td>';
 
 
                                     // Tampilkan nilai pertanyaan
@@ -129,9 +132,15 @@ $total_questions = $row['total'];
                                   }
 
 
-                                echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['Kepuasan']) ? $survey_form['Kepuasan'] : '') . '</td>';
+                                echo '<td>' . (isset($survey_form['Kepuasan']) ? $survey_form['Kepuasan'] : '') . '</td>';
                                 
-                                echo '<td class="col-md-1 col-xs-1 aksi"><a href="./hasil-pengujian.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-uji">Detail</a></td>';
+                                echo '<td class="col-md-3 col-xs-3 aksi">
+                                <a href="./backend/hapus-data-pengujian.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-delete">Hapus</a>
+                                <a href="./hasil-pengujian.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-proses">Hitung</a>
+                                <a href="./hasil-pengujian.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-detail">Detail</a>
+                                
+                                </td>';
+
 
                                 echo '</tr>';
                             }

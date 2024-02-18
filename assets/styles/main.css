@@ -9877,13 +9877,13 @@ main {
   margin: 5px 0px;
   border-radius: 10px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-container .navbar-collapse {
     display: flex;
     justify-content: space-between;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .navbar-container .navbar-collapse {
     background-color: #4682b4;
   }
@@ -9892,10 +9892,10 @@ main {
   padding: 10px 5px;
 }
 .navbar-container .navbar-collapse li {
-  margin: 0px 10px;
+  margin: 0px 12px;
   border-radius: 5px;
 }
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .navbar-container .navbar-collapse li {
     background-color: #add8e6;
   }
@@ -9918,7 +9918,7 @@ main {
   position: relative;
   border-bottom: 2px solid transparent;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .navbar-container .navbar-collapse li a:hover, .navbar-container .navbar-collapse li a:active, .navbar-container .navbar-collapse li a:focus {
     border-bottom: 2px solid #0c6f84;
     animation: border-bottom 0.5s ease-in;
@@ -9935,7 +9935,7 @@ main {
   border-radius: 10px;
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   .navbar-container .navbar-collapse .btn-secondary {
     margin-bottom: 20px;
     margin-right: 0px;
@@ -10268,16 +10268,29 @@ main {
 .print .content .btn-secondary:hover {
   background: #656565;
 }
-.print .content .btn-uji {
-  margin: 5px;
-  background: #4682b4;
+.print .content .btn-proses,
+.print .content .btn-delete,
+.print .content .btn-detail {
+  margin: 2px;
+  font-size: 15px;
   color: #ffffff;
   border: none;
   border-radius: 10px;
   transition: box-shadow 0.5s ease;
 }
-.print .content .btn-uji:hover {
+.print .content .btn-proses:hover,
+.print .content .btn-delete:hover,
+.print .content .btn-detail:hover {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+}
+.print .content .btn-detail {
+  background: #4682b4;
+}
+.print .content .btn-delete {
+  background: #d30f0f;
+}
+.print .content .btn-proses {
+  background: #0c5e70;
 }
 .print .content .aksi {
   text-align: center;

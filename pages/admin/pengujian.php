@@ -27,7 +27,7 @@
 <body>
     <!-- Navbar -->
     <header class="navbar-container sticky-top">
-        <nav class="navbar navbar-expand-md bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggler">
@@ -47,7 +47,7 @@
                             <a class="nav-link" href="./kelola-pertanyaan.php">Pertanyaan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="./pengujian.php">Pengujian</a>
+                            <a class="nav-link active" href="./pengujian.php">Kepuasan Pelanggan</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../../tentang-kami.php">Tentang Kami</a>
@@ -65,9 +65,9 @@
         <section id="hero" class="hero section-bg">
             <div class="content" data-aos="fade-up">
                 <h2 class="title">
-                    LAKUKAN PENGUJIAN UNTUK MENILAI TINGKAT KEPUASAN PASIEN
+                    PERIKSA KEPUASAN PELANGGAN UNTUK MENILAI TINGKAT KEPUASAN PASIEN
                 </h2>
-                <a href="./pengujian/table-pengujian.php" class="btn btn-primary">Lakukan Pengujian</a>
+                <a href="./pengujian/table-pengujian.php" class="btn btn-primary">Cek Kepuasan Pelanggan</a>
             </div>
             <div class="card-slider">
                 <a class="glightbox" href="../../assets/images/background-rs.png" type="image" slideEffect="slide">

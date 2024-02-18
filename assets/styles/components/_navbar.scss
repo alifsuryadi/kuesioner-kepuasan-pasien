@@ -31,12 +31,12 @@
     margin: 5px 0px;
     border-radius: 10px;
 
-    @include media-breakpoint-up(md) {
+    @include media-breakpoint-up(lg) {
       display: flex;
       justify-content: space-between;
     }
 
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(lg) {
       background-color: $color-background;
     }
 
@@ -45,10 +45,10 @@
     }
 
     li {
-      margin: 0px 10px;
+      margin: 0px 12px;
       border-radius: 5px;
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
         background-color: $color-extra;
 
         &:first-of-type {
@@ -73,7 +73,7 @@
         position: relative;
         border-bottom: 2px solid transparent;
 
-        @include media-breakpoint-up(md) {
+        @include media-breakpoint-up(lg) {
           &:hover,
           &:active,
           &:focus {
@@ -96,7 +96,7 @@
       border-radius: 10px;
       transition: transform 0.5s ease, box-shadow 0.5s ease;
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
         margin-bottom: 20px;
         margin-right: 0px;
       }
