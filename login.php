@@ -6,7 +6,7 @@ include "./validations/connection.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
-
+    
     // Query the database to fetch the user with the provided email and password
     $query = "SELECT * FROM users WHERE email = ? AND password = ?";
     $stmt = $connect->prepare($query);
@@ -17,16 +17,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if a user with the provided email and password exists
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
+        // Start a session and store the user's email
+        session_start();
+        $_SESSION['email'] = $email;
+        $_SESSION['role'] = $user['role']; // Move this line here
         // Check if the user is an admin
-        if ($user['role'] == 'admin') {
-            // Start a session and store the user's email
-            session_start();
-            $_SESSION['email'] = $email;
-            // Redirect to the admin dashboard
+        if ($user['role'] == 'admin' || $user['role'] == 'leader') {
             $_SESSION['logged_in'] = true;
             header("Location: ./index.php");
-
-            
             exit();
         } else {
             // Redirect back to login page with error message
@@ -104,8 +102,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             <?php 
                             // Display error message if provided email or password is incorrect
-                                if (isset($_GET['error']) && $_GET['error'] == 1) {
-                                  echo '<div class="alert alert-danger" role="alert">
+                            if (isset($_GET['error']) && $_GET['error'] == 1) {
+                            echo '<div class="alert alert-danger" role="alert">
                                           Email atau Password ada yang salah
                                         </div>';
                                 }

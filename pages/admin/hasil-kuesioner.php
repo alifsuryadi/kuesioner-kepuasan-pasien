@@ -78,7 +78,7 @@
 
                                             try {
                                                 // Query untuk menghitung total responden kecuali yang berperan sebagai admin
-                                                $sql = "SELECT COUNT(*) AS total_responden FROM users WHERE role != 'admin'";
+                                                $sql = "SELECT COUNT(*) AS total_responden FROM users WHERE role != 'admin' AND role != 'leader'";
                                                 $result = mysqli_query($connect, $sql);
 
                                                 if ($result) {

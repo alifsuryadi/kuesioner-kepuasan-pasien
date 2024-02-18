@@ -54,8 +54,8 @@ session_start();
                     </ul>
                     <?php endif; ?>
 
-                    <!-- Sudah login -->
-                    <?php if (isset($_SESSION['logged_in'])) : ?>
+                    <!-- Navbar admin  -->
+                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'admin') : ?>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active" href="./index.php">Beranda</a>
@@ -71,6 +71,27 @@ session_start();
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="./tentang-kami.php">Tentang Kami</a>
+                        </li>
+                    </ul>
+                    <div class="text-center btn-logout">
+                        <a href="./validations/logout.php" class="btn btn-secondary">Keluar</a>
+                    </div>
+                    <?php endif; ?>
+
+                    <!-- Navbar leader -->
+                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'leader') : ?>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="./index.php">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./tentang-kami.php">Tentang Kami</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/admin/pengujian.php">Kepuasan Pelanggan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./pages/leader/laporan.php">Laporan</a>
                         </li>
                     </ul>
                     <div class="text-center btn-logout">

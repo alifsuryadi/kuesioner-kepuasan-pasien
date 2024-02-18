@@ -39,29 +39,7 @@ include_once("../../validations/middleware.php");
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
 
-                    <!-- Navbar admin  -->
-                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'admin') : ?>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../index.php">Beranda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./hasil-kuesioner.php">Hasil Kuesioner</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="./kelola-pertanyaan.php">Pertanyaan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="./pengujian.php">Kepuasan Pelanggan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../../tentang-kami.php">Tentang Kami</a>
-                        </li>
-                    </ul>
-                    <?php endif; ?>
-
                     <!-- Navbar leader -->
-                    <?php if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'leader') : ?>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" href="../../index.php">Beranda</a>
@@ -70,13 +48,12 @@ include_once("../../validations/middleware.php");
                             <a class="nav-link" href="../../tentang-kami.php">Tentang Kami</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="./pengujian.php">Kepuasan Pelanggan</a>
+                            <a class="nav-link" href="../admin/pengujian.php">Kepuasan Pelanggan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../leader/laporan.php">Laporan</a>
+                            <a class="nav-link  active" href="./laporan.php">Laporan</a>
                         </li>
                     </ul>
-                    <?php endif; ?>
 
                     <div class="text-center btn-logout">
                         <a href="../../validations/logout.php" class="btn btn-secondary">Keluar</a>
@@ -90,16 +67,9 @@ include_once("../../validations/middleware.php");
         <section id="hero" class="hero section-bg">
             <div class="content" data-aos="fade-up">
                 <h2 class="title">
-                    PERIKSA KEPUASAN PELANGGAN UNTUK MENILAI TINGKAT KEPUASAN PASIEN
+                    PERIKSA LAPORAN TINGKAT KEPUASAN PASIEN
                 </h2>
-
-                <?php if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'admin') : ?>
-                <a href="./pengujian/table-pengujian.php" class="btn btn-primary">Cek Kepuasan Pelanggan</a>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['logged_in']) && $_SESSION['role'] == 'leader') : ?>
-                <a href="../leader/kepuasan-pelanggan.php" class="btn btn-primary">Cek Kepuasan Pelanggan</a>
-                <?php endif; ?>
+                <a href="./cek-laporan.php" class="btn btn-primary">Cek Laporan</a>
             </div>
             <div class="card-slider">
                 <a class="glightbox" href="../../assets/images/background-rs.png" type="image" slideEffect="slide">

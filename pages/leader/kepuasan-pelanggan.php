@@ -1,6 +1,6 @@
 <?php
-include_once("../../../validations/middleware-2.php");
-include_once("../../../validations/connection.php");
+include_once("../../validations/middleware-2.php");
+include_once("../../validations/connection.php");
 
 // Lakukan pengambilan data dari database menggunakan koneksi yang sudah disertakan
 $data_survey_form = [];
@@ -59,13 +59,13 @@ $total_questions = $row['total'];
 
     <title>Hasil - Kuesioner</title>
 
-    <link href="../../../assets/images/favicon/favicon.ico" rel="icon" />
-    <link href="../../../assets/images/favicon/apple-touch-icon.png" rel="apple-touch-icon" />
+    <link href="../../assets/images/favicon/favicon.ico" rel="icon" />
+    <link href="../../assets/images/favicon/apple-touch-icon.png" rel="apple-touch-icon" />
 
-    <link rel="stylesheet" href="../../../assets/styles/main.css" />
-    <link href="../../../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="../../../vendor/aos/aos.css" rel="stylesheet" />
-    <link href="../../../vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/styles/main.css" />
+    <link href="../../vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../../vendor/aos/aos.css" rel="stylesheet" />
+    <link href="../../vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -87,7 +87,6 @@ $total_questions = $row['total'];
                                 <th rowspan="2">Nama Lengkap</th>
                                 <th colspan="<?php echo $total_questions; ?>" class="col-md-9 col-xs-9">Pertanyaan</th>
                                 <th rowspan="2">Kepuasan</th>
-                                <th rowspan="2" class="col-md-3 col-xs-3">Aksi</th>
                             </tr>
                             <tr>
                                 <?php
@@ -135,12 +134,6 @@ $total_questions = $row['total'];
 
                                 echo '<td>' . (isset($survey_form['Kepuasan']) ? $survey_form['Kepuasan'] : '') . '</td>';
                                 
-                                echo '<td class="col-md-3 col-xs-3 aksi">
-                                <a href="./backend/hapus-data-pengujian.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-delete">Hapus</a>
-                                <a href="./hasil-perhitungan.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-proses">Hitung</a>
-                                <a href="./hasil-pengujian.php?id_form=' . $survey_form['id_form'] . '" class="btn btn-detail">Detail</a>
-                                
-                                </td>';
 
 
                                 echo '</tr>';
@@ -154,7 +147,7 @@ $total_questions = $row['total'];
                 </div>
                 <div class="row">
                     <div class="col-12 d-flex justify-content-end">
-                        <a href="../pengujian.php" class="btn btn-primary">Kembali</a>
+                        <a href="../admin/pengujian.php" class="btn btn-primary">Kembali</a>
                         <a href="" class="btn btn-secondary" id="cetak">Cetak</a>
                     </div>
                 </div>
@@ -164,13 +157,13 @@ $total_questions = $row['total'];
 
     <!-- Vendor JS Files -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="../../../vendor/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../../../vendor/aos/aos.js"></script>
-    <script src="../../../vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="../../../vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../../vendor/bootstrap-5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../vendor/aos/aos.js"></script>
+    <script src="../../vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../../vendor/purecounter/purecounter_vanilla.js"></script>
 
-    <script src="../../../assets/scripts/main.js"></script>
-    <script src="../../../assets/scripts/table.js"></script>
+    <script src="../../assets/scripts/main.js"></script>
+    <script src="../../assets/scripts/table.js"></script>
 </body>
 
 </html>

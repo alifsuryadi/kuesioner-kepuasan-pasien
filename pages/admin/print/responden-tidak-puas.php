@@ -103,6 +103,8 @@ $total_questions = $row['total'];
                         </thead>
                         <tbody>
                             <?php
+
+                            if (!empty($data_survey_form)) {
                              // Output data
                             foreach ($data_survey_form as $key => $survey_form) {
                                 // Periksa apakah kepuasan adalah 'Puas'
@@ -132,6 +134,10 @@ $total_questions = $row['total'];
                                     echo '<td class="col-md-1 col-xs-1">' . (isset($survey_form['Kepuasan']) ? $survey_form['Kepuasan'] : '') . '</td>';
 
                                     echo '</tr>';
+                            }
+                            } else {
+                                // Jika tidak ada data, tampilkan pesan "Tidak ada data ditemukan"
+                                echo '<tr><td colspan='. ($total_questions + 6).'>Tidak ada data ditemukan</td></tr>';
                             }
                             ?>
 

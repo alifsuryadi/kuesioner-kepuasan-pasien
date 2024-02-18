@@ -310,11 +310,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nilai_z = (($a1 * $z1) + ($a2 * $z2) + ($a3 * $z3) + ($a4 * $z4) + ($a5 * $z5) + ($a6 * $z6) + ($a7 * $z7) + ($a8 * $z8) + ($a9 * $z9) + ($a10 * $z10) + ($a11 * $z11) + ($a12 * $z12) + ($a13 * $z13) + ($a14 * $z14) + ($a15 * $z15) + ($a16 * $z16) + ($a17 * $z17) + ($a18 * $z18) + ($a19 * $z19) + ($a20 * $z20) + ($a21 * $z21) + ($a22 * $z22) + ($a23 * $z23) + ($a24 * $z24) + ($a25 * $z25) + ($a26 * $z26) + ($a27 * $z27)) / ($a1 + $a2 + $a3 + $a4 + $a5 + $a6 + $a7 + $a8 + $a9 + $a10 + $a11 + $a12 + $a13 + $a14 + $a15 + $a16 + $a17 + $a18 + $a19 + $a20 + $a21 + $a22 + $a23 + $a24 + $a25 + $a26 + $a27);
     $hasil_z = number_format($nilai_z, 2);
 
-    if ($hasil_z >= 42.5) {
+    if ($hasil_z >= 50) {
         $kepuasan = "Puas";
     } else {
         $kepuasan = "Tidak Puas";
     }
+
+
+    // Category
+    $category_responsiveness =""; 
+    $category_empathy = "";
+    $category_tangible = ""; 
+
+    if($rata_responsiveness <= 33){
+        $category_responsiveness = "Tidak Baik";
+    }else if($rata_responsiveness > 33 && $rata_responsiveness <= 67){
+        $category_responsiveness = "Cukup Baik";
+    }else{
+        $category_responsiveness = "Baik";
+    }
+
+    if($rata_empathy <= 33){
+        $category_empathy = "Tidak Baik";
+    }else if($rata_empathy > 33 && $rata_empathy <= 67){
+        $category_empathy = "Cukup Baik";
+    }else{
+        $category_empathy = "Baik";
+    }
+
+    if($rata_tangible <= 33){
+        $category_tangible = "Tidak Baik";
+    }else if($rata_tangible > 33 && $rata_tangible <= 67){
+        $category_tangible = "Cukup Baik";
+    }else{
+        $category_tangible = "Baik";
+    }
+
+
     
 
     // Menyiapkan pernyataan SQL untuk mendapatkan id_form terakhir
@@ -326,8 +358,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Menyiapkan pernyataan SQL untuk memasukkan data hasil survey ke dalam tabel survey_results
-    $sql_insert_result = "INSERT INTO `survey_results` (`id_form`, `created_at`, `responsiveness`, `empathy`, `tangible`, `nilai_z`, `kepuasan`) 
-                            VALUES ('$next_id', NOW(), '$rata_responsiveness', '$rata_empathy', '$rata_tangible', '$hasil_z', '$kepuasan')";
+    $sql_insert_result = "INSERT INTO `survey_results` (`id_form`, `created_at`, `responsiveness`, `c_responsiveness`, `empathy`, `c_empathy`, `tangible`, `c_tangible`, `nilai_z`, `kepuasan`) 
+                            VALUES ('$next_id', NOW(), '$rata_responsiveness', '$category_responsiveness', '$rata_empathy',  '$category_empathy', '$rata_tangible', '$category_tangible', '$hasil_z', '$kepuasan')";
          
     // Memasukkan data kuesioner ke dalam tabel survey_form
     if ($connect->query($sql_insert_user) === TRUE && $connect->query($sql_insert_survey) === TRUE && $connect->query($sql_insert_result) === TRUE ) {
